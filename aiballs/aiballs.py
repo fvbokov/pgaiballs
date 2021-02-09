@@ -15,12 +15,12 @@ def count_imp(list):
     rslt = vector(0,0)
     for ball in list:
         rslt += ball.mass * ball.velocity
-    return rslt   
+    return rslt.length()   
 
 def play():
     pygame.init() 
 
-    window = pygame.display.set_mode((1480, 920))
+    window = pygame.display.set_mode((800, 600))
 
     clock = pygame.time.Clock()
     milliseconds = 0
@@ -66,5 +66,7 @@ def play():
             if (balls[i].radius < 3):
                 del balls[i]
             i += 1 
-        
+
+        print(character.radius)
+
         pygame.display.flip()

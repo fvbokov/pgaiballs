@@ -12,6 +12,10 @@ class Circle:
     def mass(self):
         return (4/3) * (self.radius**3) * math.pi
 
+    @property
+    def impulse(self):
+        return self.mass * self.velocity
+
     @mass.setter
     def mass(self, new_mass):
         self.radius = ((3 * new_mass) / (4 * math.pi)) ** (1/3) 
