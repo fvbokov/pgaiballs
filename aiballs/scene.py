@@ -10,7 +10,7 @@ class Scene():
     def __init__(self, balls):
         self.balls = balls
         self.params = {}
-        self.c = 0
+
     def add_ball(self, ball):
         self.balls.append(ball)
 
@@ -34,4 +34,4 @@ class Scene():
             ball.draw(window)
             if self.balls[i].radius < 3:
                 del self.balls[i]
-                i += 1
+            i += 1

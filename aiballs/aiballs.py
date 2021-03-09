@@ -4,10 +4,8 @@ import sys
 import pygame
 
 from .ball import Ball
-from .mouse import Mouse
-from .collision import check_collisions
-
 from .ai import mouse_control
+from .scene import Scene
 
 class PlayerCharacter(Ball):
     """Ball that the player controls."""
@@ -25,38 +23,24 @@ def play():
     FPS = 60
 
     balls = []
-
-    window.fill("Black")
-    
     character = PlayerCharacter(400, 400,7000000 , pygame.Color("Red"))
     balls.append(character)
     balls.append(Ball(100, 100, 700000))
     balls[1].velocity = pygame.math.Vector2(120,120)
 
+    scene = Scene(balls)
+
+    window.fill("Black")
+    
     while True:
         milliseconds = clock.tick(FPS)
-        
         for event in pygame.event.get():
-            
-            if event.type == pygame.QUIT:
-                
+            if event.type == pygame.QUIT:                
                 pygame.quit()
-                
                 sys.exit()
-            
-        window.fill("Black")
 
-        Mouse.update()
+        window.fill("Black")
         
-        i = 0
-        for ball in balls:
-            ball.control(balls)
-            ball.physics(milliseconds)
-            ball.borders(window)
-            check_collisions(ball, balls)
-            ball.draw(window)
-            if balls[i].radius < 3:
-                del balls[i]
-            i += 1 
+        scene.play(window, milliseconds)
 
         pygame.display.flip()
