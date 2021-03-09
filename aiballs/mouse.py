@@ -15,3 +15,5 @@ class Mouse:
                 cls.state = 'released'
             if cls.state == 'pressed':
                 cls.state = 'releasing'
+            if cls.state == 'pressing':
+                cls.state = 'released'
