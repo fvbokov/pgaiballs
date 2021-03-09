@@ -13,7 +13,6 @@ class Ball:
 
     def __init__(self, posx = 0, posy = 0, mass = 100, color = pygame.Color("White")):
         self.pos = vector(posx, posy)
-        self._mass = 0
         self.mass = mass
         self.color = color
         self.velocity = vector(0, 0)
@@ -22,25 +21,11 @@ class Ball:
         pygame.draw.circle(window, self.color, (int(self.pos.x), int(self.pos.y)), int(self.radius))
     
     @property
-    def mass(self):
-        #print('getting mass:', self._mass)
-        return self._mass
-
-    @mass.setter
-    def mass(self, mass):
-        #print('setting mass', mass)
-        self._mass = mass
-        
-    @property
     def radius(self):
-        #print('getting radius:', ((3 * self.mass) /(4  * math.pi)) ** (1/3))
         return ((3 * self.mass) /(4  * math.pi)) ** (1/3)
 
     @radius.setter
     def radius(self, radius):
-        if radius < 0:
-            print('pass')
-        #print('setting radius', radius)
         self.mass = (4/3) * (radius**3) * math.pi
         
     @property
@@ -66,7 +51,7 @@ class Ball:
         self.pos.y += self.velocity.y * milliseconds/1000
 
     def move(self, angle, balls):
-        angle *= -1 # reverse angle because y axis goes down not up
+        
         child = Ball(self.pos.x, self.pos.y, 0, pygame.Color("Green"))
 
         split_mass = self.mass / 100
@@ -85,5 +70,5 @@ class Ball:
 
         balls.append(child)
 
-    def control(self, balls, j):
+    def control(self, balls):
         pass
