@@ -6,6 +6,7 @@ import pygame
 from .ball import Ball
 from .ai import mouse_control
 from .scene import Scene
+from .json import to_json, from_json
 
 class PlayerCharacter(Ball):
     """Ball that the player controls."""
@@ -22,11 +23,7 @@ def play():
     milliseconds = 0
     FPS = 60
 
-    balls = []
-    character = PlayerCharacter(400, 400,7000000 , pygame.Color("Red"))
-    balls.append(character)
-    balls.append(Ball(100, 100, 700000))
-    balls[1].velocity = pygame.math.Vector2(120,120)
+    balls = from_json('level1.json')
 
     scene = Scene(balls)
 
@@ -35,7 +32,8 @@ def play():
     while True:
         milliseconds = clock.tick(FPS)
         for event in pygame.event.get():
-            if event.type == pygame.QUIT:                
+            if event.type == pygame.QUIT:
+                to_json('level1.json', balls)                
                 pygame.quit()
                 sys.exit()
 
