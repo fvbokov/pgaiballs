@@ -1,12 +1,9 @@
 """Class that stores and updates all level data"""
 from .collision import distance, on_collision
-from .ball import Ball
 from .mouse import Mouse
-from pygame.math import Vector2 as Vector
-from math import pi
 
 class Scene():
-    """Class itself"""
+    """Class with constructor, ball add function, process balls with play and check_collisions"""
     def __init__(self, balls):
         self.balls = balls
         self.params = {}
@@ -18,7 +15,7 @@ class Scene():
         for ball in self.balls:
             if obj is not ball:
                 if distance(ball.pos, obj.pos) <= obj.radius + ball.radius:
-                    if (ball.radius > obj.radius):
+                    if ball.radius > obj.radius:
                         on_collision(ball, obj)
                     else:
                         on_collision(obj, ball)

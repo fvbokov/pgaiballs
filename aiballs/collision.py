@@ -2,14 +2,14 @@
 import math
 
 def distance(pos1, pos2):
-    return (math.sqrt((pos1.x - pos2.x)**2 + (pos1.y - pos2.y)**2))
+    return math.sqrt((pos1.x - pos2.x)**2 + (pos1.y - pos2.y)**2)
 
 def check_collisions(obj, balls):
     for ball in balls:
         if obj is not ball:
             
             if distance(ball.pos, obj.pos) <= obj.radius + ball.radius:
-                if (ball.radius > obj.radius):
+                if ball.radius > obj.radius:
                     on_collision(ball, obj)
                 else:
                     on_collision(obj, ball) 
@@ -42,3 +42,4 @@ def on_collision(ball1, ball2):
 
     ball1.velocity = v1new
     ball2.velocity = v2new
+    

@@ -44,3 +44,4 @@ def play():
         scene.play(window, milliseconds)
 
         pygame.display.flip()
+        

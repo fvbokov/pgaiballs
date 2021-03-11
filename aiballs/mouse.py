@@ -1,6 +1,8 @@
+"""Mouse state processing"""
 from pygame import mouse
 
 class Mouse:
+    """Class containg mouse state and mouse update function. Call it in main loop"""
     state = 'released'
 
     @classmethod
