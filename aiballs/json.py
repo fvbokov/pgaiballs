@@ -32,7 +32,7 @@ def from_json(filename):
 
     from .aiballs import PlayerCharacter
 
-    with open(filename, 'r') as f:
+    with open(filename, 'r', encoding='utf-8') as f:
         data = json.load(f)        
 
     i = 0
