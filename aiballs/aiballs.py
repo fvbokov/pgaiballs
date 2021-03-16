@@ -1,7 +1,9 @@
 """Game loop"""
 import sys
+import os
 
 import pygame
+
 
 from .ball import Ball
 from .ai import mouse_control
@@ -18,6 +20,7 @@ def count_mass(balls):
 def play():
     pygame.init() 
     window = pygame.display.set_mode((800, 600))
+    pygame.display.set_caption("aiballs")
     
     clock = pygame.time.Clock()
     milliseconds = 0
@@ -26,9 +29,10 @@ def play():
     balls = from_json('level1.json')
 
     scene = Scene(balls)
+    scene.balls[0].load_image(os.path.dirname(__file__) + '/data/images/circular.png')
 
     window.fill("Black")
-    
+
     while True:
        
         milliseconds = clock.tick(FPS)

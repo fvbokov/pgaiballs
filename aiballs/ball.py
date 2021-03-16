@@ -4,6 +4,8 @@ import math
 import pygame
 import pygame.gfxdraw
 from pygame.math import Vector2 as vector
+from pygame.sprite import Sprite
+from pygame.surface import Surface
 
 class Ball:
     """Every ball that moves in the game.
@@ -16,9 +18,33 @@ class Ball:
         self.mass = mass
         self.color = color
         self.velocity = vector(0, 0)
+
+        self.has_image = False
+        self.image = Surface((0, 0))
+        self.rotation_angle = 1
+        self.sprite = Sprite()
+        self.sprite.image = Surface((0, 0))
+        self.sprite.rect = self.sprite.image.get_rect()
+        
     
+    def load_image(self, filename):
+        self.has_image = True
+
+        self.image = pygame.image.load(filename) #loading image from file and keep it in self.image
+        self.sprite.image = self.image #giving texture to a sprite
+        self.sprite.rect = self.sprite.image.get_rect() # setting sprite size from image size
+
     def draw(self, window):
-        pygame.draw.circle(window, self.color, (int(self.pos.x), int(self.pos.y)), int(self.radius))
+        if self.has_image:
+            self.sprite.image = self.image
+            self.sprite.rect = self.sprite.image.get_rect()
+            self.sprite.image = pygame.transform.smoothscale(self.sprite.image, (int(self.radius * 2), int(self.radius * 2)))
+            #self.sprite.image = pygame.transform.rotate(self.sprite.image, self.rotation_angle)
+            self.sprite.image = pygame.transform.flip(self.sprite.image, self.rotation_angle, 1)
+            self.rotation_angle *= -1
+            window.blit(self.sprite.image, (self.pos.x - self.radius, self.pos.y - self.radius))
+        else:
+            pygame.draw.circle(window, self.color, (int(self.pos.x), int(self.pos.y)), int(self.radius))
     
     @property
     def radius(self):
