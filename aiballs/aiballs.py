@@ -18,7 +18,7 @@ def count_mass(balls):
 def play():
     pygame.init() 
     window = pygame.display.set_mode((800, 600))
-
+    
     clock = pygame.time.Clock()
     milliseconds = 0
     FPS = 60
@@ -30,6 +30,7 @@ def play():
     window.fill("Black")
     
     while True:
+       
         milliseconds = clock.tick(FPS)
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
@@ -40,6 +41,6 @@ def play():
         window.fill("Black")
         
         scene.play(window, milliseconds)
-
+        
         pygame.display.flip()
         
