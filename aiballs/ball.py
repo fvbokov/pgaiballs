@@ -3,8 +3,7 @@ import math
 
 import pygame
 import pygame.gfxdraw
-from pygame.math import Vector2 as vector
-from pygame.sprite import Sprite
+from pygame.math import Vector2 as Vector
 from pygame.surface import Surface
 
 class Ball:
@@ -14,38 +13,45 @@ class Ball:
     """
 
     def __init__(self, posx = 0, posy = 0, mass = 100, color = pygame.Color("White")):
-        self.pos = vector(posx, posy)
+        self.pos = Vector(posx, posy)
         self.mass = mass
         self.color = color
-        self.velocity = vector(0, 0)
+        self.velocity = Vector(0, 0)
 
         self.has_image = False
         self.image = Surface((0, 0))
-        self.rotation_angle = 1
-        self.sprite = Sprite()
-        self.sprite.image = Surface((0, 0))
-        self.sprite.rect = self.sprite.image.get_rect()
-        
+        self.rotation_angle = 0
+
+        self.filename = None
     
+    def transform(self):
+        #scale---
+        transformed_image = pygame.transform.smoothscale(self.image, (int(self.radius * 2), int(self.radius * 2)))
+        #--------
+
+        #rotation---
+        self.rotation_angle += 1
+        transformed_image, transformed_rect = rotate(transformed_image, self.rotation_angle)
+        #-----------
+
+        #position---
+        transformed_rect.x += self.pos.x - self.radius
+        transformed_rect.y += self.pos.y - self.radius
+        #-----------
+
+        return transformed_image, transformed_rect
+
     def load_image(self, filename):
         self.has_image = True
-
+        self.filename = filename
         self.image = pygame.image.load(filename) #loading image from file and keep it in self.image
-        self.sprite.image = self.image #giving texture to a sprite
-        self.sprite.rect = self.sprite.image.get_rect() # setting sprite size from image size
 
     def draw(self, window):
         if self.has_image:
-            self.sprite.image = self.image
-            self.sprite.rect = self.sprite.image.get_rect()
-            self.sprite.image = pygame.transform.smoothscale(self.sprite.image, (int(self.radius * 2), int(self.radius * 2)))
-            #self.sprite.image = pygame.transform.rotate(self.sprite.image, self.rotation_angle)
-            self.sprite.image = pygame.transform.flip(self.sprite.image, self.rotation_angle, 1)
-            self.rotation_angle *= -1
-            window.blit(self.sprite.image, (self.pos.x - self.radius, self.pos.y - self.radius))
+            window.blit(*self.transform()) # func transform returns tuple of 2 elements. '*' unpacks it to just 2 args
         else:
             pygame.draw.circle(window, self.color, (int(self.pos.x), int(self.pos.y)), int(self.radius))
-    
+
     @property
     def radius(self):
         return ((3 * self.mass) /(4  * math.pi)) ** (1/3)
@@ -84,11 +90,11 @@ class Ball:
         self.mass -= split_mass
         child.mass = split_mass
         
-        direction = vector(self.radius + child.radius, 0).rotate_rad(angle)
+        direction = Vector(self.radius + child.radius, 0).rotate_rad(angle)
 
         child.pos = self.pos + direction
 
-        delta_v = vector(800, 0)
+        delta_v = Vector(800, 0)
         delta_v.rotate_ip_rad(angle)
         child.velocity = self.velocity + delta_v
 
@@ -98,3 +104,9 @@ class Ball:
 
     def control(self, balls):
         pass
+
+def rotate(surface, angle):
+    rotated_surface = pygame.transform.rotozoom(surface, angle, 1)
+    rotated_rect = rotated_surface.get_rect(center=(surface.get_width()/2, surface.get_height()/2))
+	
+    return rotated_surface, rotated_rect

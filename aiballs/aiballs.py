@@ -4,7 +4,6 @@ import os
 
 import pygame
 
-
 from .ball import Ball
 from .ai import mouse_control
 from .scene import Scene
@@ -29,7 +28,7 @@ def play():
     balls = from_json('level1.json')
 
     scene = Scene(balls)
-    scene.balls[0].load_image(os.path.dirname(__file__) + '/data/images/circular.png')
+    scene.balls[0].load_image(os.path.dirname(__file__) + '/data/images/leaves.png')
 
     window.fill("Black")
 

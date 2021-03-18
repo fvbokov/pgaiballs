@@ -24,8 +24,8 @@ def to_json(filename, balls):
     export['Level'] = ball_dicts
     
     with open(filename, 'w', encoding='utf-8') as f:
-        json.dump(export, f, indent='    ', ensure_ascii=False)    
-
+        json.dump(export, f, indent='    ', ensure_ascii=False) 
+  
 def from_json(filename):
     balls = list()
     data = dict()
@@ -38,10 +38,8 @@ def from_json(filename):
     i = 0
     for ball in data["Level"]:
         if ball['type'] == "<class 'aiballs.aiballs.PlayerCharacter'>":
-            print('player')
             balls.append(PlayerCharacter())
         elif ball['type'] == "<class 'aiballs.ball.Ball'>":
-            print('ball')
             balls.append(Ball())
         print(i)
         balls[i].mass = ball['mass']
