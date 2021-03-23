@@ -105,8 +105,12 @@ class Ball:
     def control(self, balls):
         pass
 
+    def get_angle(self, x, y):
+        return math.atan2(y - self.pos.y, x - self.pos.x)
+
 def rotate(surface, angle):
     rotated_surface = pygame.transform.rotozoom(surface, angle, 1)
     rotated_rect = rotated_surface.get_rect(center=(surface.get_width()/2, surface.get_height()/2))
 	
     return rotated_surface, rotated_rect
+    
