@@ -106,6 +106,7 @@ class Ball:
         pass
 
     def get_angle(self, x, y):
+        print('angle ' + str(math.atan2(y - self.pos.y, x - self.pos.x)) + 'pos ' + str(x) + ', ' + str(y))
         return math.atan2(y - self.pos.y, x - self.pos.x)
 
 def rotate(surface, angle):

@@ -6,12 +6,13 @@ import pygame
 
 from .ball import Ball
 from .ai import mouse_control
+from .ai import ai
 from .scene import Scene
 from .json import to_json, from_json
 
 class PlayerCharacter(Ball):
     """Ball that the player controls."""
-    control = mouse_control
+    control = ai
 
 def count_mass(balls):
     return sum((ball.mass for ball in balls))
