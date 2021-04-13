@@ -1,0 +1,46 @@
+{
+    "Level": [
+        {
+            "type": "<class 'aiballs.aiballs.PlayerCharacter'>",
+            "mass": 8138782.832270754,
+            "posX": 400.3051517849253,
+            "posY": 297.78174024219015,
+            "velocityX": 0,
+            "velocityY": 0,
+            "color": [
+                0,
+                255,
+                0,
+                255
+            ]
+        },
+        {
+            "type": "<class 'aiballs.ball.Ball'>",
+            "mass": 2138782.832270754,
+            "posX": 100.3051517849253,
+            "posY": 100.78174024219015,
+            "velocityX": 0,
+            "velocityY": 0,
+            "color": [
+                0,
+                255,
+                0,
+                255
+            ]
+        },
+        {
+            "type": "<class 'aiballs.ball.Ball'>",
+            "mass": 2138782.832270754,
+            "posX": 600.3051517849253,
+            "posY": 700.78174024219015,
+            "velocityX": 0,
+            "velocityY": 0,
+            "color": [
+                0,
+                255,
+                0,
+                255
+            ]
+        }
+    ]
+}

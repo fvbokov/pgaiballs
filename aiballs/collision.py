@@ -1,5 +1,6 @@
 """Functions that process collision-related event."""
 import math
+import pygame
 
 def distance(pos1, pos2):
     return math.sqrt((pos1.x - pos2.x)**2 + (pos1.y - pos2.y)**2)
@@ -42,4 +43,7 @@ def on_collision(ball1, ball2):
 
     ball1.velocity = v1new
     ball2.velocity = v2new
+    
+    ball1.update_texture_scale()
+    ball2.update_texture_scale()
     

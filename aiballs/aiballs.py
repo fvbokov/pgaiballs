@@ -12,29 +12,34 @@ from .json import to_json, from_json
 
 class PlayerCharacter(Ball):
     """Ball that the player controls."""
-    control = ai
+    control = mouse_control
 
 def count_mass(balls):
     return sum((ball.mass for ball in balls))
 
+def update_fps(clock, font):
+    fps = str(int(clock.get_fps()))
+    fps_text = font.render(fps, 1, pygame.Color("coral"))
+    return fps_text
+
 def play():
+    print(pygame.transform.get_smoothscale_backend())
     pygame.init() 
+    font = pygame.font.Font(os.path.dirname(__file__) + '/data/fonts/font.ttf', 18)
     window = pygame.display.set_mode((800, 600))
     pygame.display.set_caption("aiballs")
     
     clock = pygame.time.Clock()
     milliseconds = 0
-    FPS = 60
+    FPS = 244
 
     balls = from_json('level1.json')
 
     scene = Scene(balls)
-    scene.balls[0].load_image(os.path.dirname(__file__) + '/data/images/leaves.png')
+    scene.balls[0].load_image(os.path.dirname(__file__) + '/data/images/shroom.png', child_filename=os.path.dirname(__file__) + '/data/images/leaf.png')
 
     window.fill("Black")
-
     while True:
-       
         milliseconds = clock.tick(FPS)
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
@@ -43,7 +48,8 @@ def play():
                 sys.exit()
 
         window.fill("Black")
-        
+        #print(int(clock.get_fps()))
+        window.blit(update_fps(clock, font), (10,0))
         scene.play(window, milliseconds)
         
         pygame.display.flip()

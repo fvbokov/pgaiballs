@@ -19,36 +19,41 @@ class Ball:
         self.velocity = Vector(0, 0)
 
         self.has_image = False
-        self.image = Surface((0, 0))
+        self.original_texture = None
+        self.child_original_texture = None
         self.rotation_angle = 0
-
-        self.filename = None
+        self.texture = None
+        self.texture_rect = None
     
-    def transform(self):
-        #scale---
-        transformed_image = pygame.transform.smoothscale(self.image, (int(self.radius * 2), int(self.radius * 2)))
-        #--------
+    def update_texture_scale(self):
+        self.texture = pygame.transform.smoothscale(self.original_texture, (int(self.radius * 2), int(self.radius * 2)))
+        pass 
 
-        #rotation---
+    def update_texture_rotation(self):
+
         self.rotation_angle += 1
-        transformed_image, transformed_rect = rotate(transformed_image, self.rotation_angle)
-        #-----------
+        self.texture = pygame.transform.rotozoom(self.original_texture, self.rotation_angle, 1)
+        self.texture_rect = self.texture.get_rect()
+        self.texture_rect.center = (self.original_texture.get_width()/2, self.original_texture.get_height()/2)
 
+        #self.texture, self.texture_rect = rotate(self.original_texture, self.rotation_angle)
         #position---
-        transformed_rect.x += self.pos.x - self.radius
-        transformed_rect.y += self.pos.y - self.radius
+        self.texture_rect.x += self.pos.x - self.radius
+        self.texture_rect.y += self.pos.y - self.radius
         #-----------
 
-        return transformed_image, transformed_rect
-
-    def load_image(self, filename):
+    def load_image(self, filename, child_filename = None):
         self.has_image = True
-        self.filename = filename
-        self.image = pygame.image.load(filename) #loading image from file and keep it in self.image
+        self.original_texture = pygame.image.load(filename) #loading image from file and keep it in self.original_texture
+        self.update_texture_scale()
+        if child_filename is not None:
+            self.child_original_texture = pygame.image.load(child_filename)
 
     def draw(self, window):
         if self.has_image:
-            window.blit(*self.transform()) # func transform returns tuple of 2 elements. '*' unpacks it to just 2 args
+            self.update_texture_rotation()
+            print(self.texture_rect.x, self.texture_rect.y)
+            window.blit(self.texture, self.texture_rect)
         else:
             pygame.draw.circle(window, self.color, (int(self.pos.x), int(self.pos.y)), int(self.radius))
 
@@ -83,7 +88,6 @@ class Ball:
         self.pos.y += self.velocity.y * milliseconds/1000
 
     def move(self, angle, balls):
-        
         child = Ball(self.pos.x, self.pos.y, 0, pygame.Color("Green"))
 
         split_mass = self.mass / 100
@@ -99,8 +103,12 @@ class Ball:
         child.velocity = self.velocity + delta_v
 
         self.velocity = ((self.mass + child.mass) * self.velocity - child.impulse) / self.mass      
-
+        child.original_texture = self.child_original_texture
+        child.has_image = True
+        child.update_texture_scale()
         balls.append(child)
+
+        self.update_texture_scale()
 
     def control(self, balls):
         pass
@@ -111,7 +119,7 @@ class Ball:
 
 def rotate(surface, angle):
     rotated_surface = pygame.transform.rotozoom(surface, angle, 1)
-    rotated_rect = rotated_surface.get_rect(center=(surface.get_width()/2, surface.get_height()/2))
-	
+    rotated_rect = rotated_surface.get_rect()
+    rotated_rect.center = (surface.get_width()/2, surface.get_height()/2)
     return rotated_surface, rotated_rect
     

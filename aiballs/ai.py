@@ -26,6 +26,3 @@ def ai(self, balls):
                 distance_to_nearest = distance(self.pos, ball.pos)
 
         self.move(math.pi + self.get_angle(nearest_ball.pos.x, nearest_ball.pos.y), balls)
-
-
-

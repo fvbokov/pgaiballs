@@ -30,5 +30,5 @@ class Scene():
             self.check_collisions(ball)
             ball.draw(window)
             if self.balls[i].radius < 3:
-                del self.balls[i]
+                self.balls.pop(i)
             i += 1
