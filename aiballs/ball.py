@@ -20,10 +20,12 @@ class Ball:
 
         self.has_image = False
         self.original_texture = None
-        self.child_original_texture = None
         self.rotation_angle = 0
         self.texture = None
         self.texture_pos = None
+
+        self.texture_name = None
+        self.child_texture_name = None
 
     def update_texture(self):
         #rotating and scaling---
@@ -32,7 +34,7 @@ class Ball:
 
         self.texture = pygame.transform.rotozoom(self.original_texture, self.rotation_angle, scale)
         #-----------------------
-        
+
         #position---
         texture_rect = self.texture.get_rect()
         texture_rect.center = (
@@ -48,10 +50,12 @@ class Ball:
 
 
     def load_image(self, filename, child_filename = None):
+        self.texture_name = filename
         self.has_image = True
-        self.original_texture = pygame.image.load(filename) #loading image from file and keep it in self.original_texture
+        self.original_texture = pygame.image.load(self.texture_name) #loading image from file and keep it in self.original_texture
+        
         if child_filename is not None:
-            self.child_original_texture = pygame.image.load(child_filename)
+            self.child_texture_name = child_filename
 
     def draw(self, window):
         if self.has_image:
@@ -106,8 +110,7 @@ class Ball:
         child.velocity = self.velocity + delta_v
 
         self.velocity = ((self.mass + child.mass) * self.velocity - child.impulse) / self.mass      
-        child.original_texture = self.child_original_texture
-        child.has_image = True
+        child.load_image(self.child_texture_name)
         balls.append(child)
 
     def control(self, balls):

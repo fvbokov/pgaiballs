@@ -1,5 +1,7 @@
 """Functions that export and import levels of the game as json file"""
 import json
+import os
+from pathlib import Path
 
 import pygame
 from pygame.math import Vector2 as Vector
@@ -21,6 +23,10 @@ def to_json(filename, balls):
         ball_dicts[i]['velocityX'] = ball.velocity.x
         ball_dicts[i]['velocityY'] = ball.velocity.y
         ball_dicts[i]['color'] = list(ball.color)
+        if ball.has_image:
+            ball_dicts[i]['texture'] = Path(ball.texture_name).stem
+        if ball.child_texture_name is not None:
+            ball_dicts[i]['child_texture'] = Path(ball.child_texture_name).stem
         i += 1
     export['Level'] = ball_dicts
     
@@ -42,11 +48,21 @@ def from_json(filename):
             balls.append(PlayerCharacter())
         elif ball['type'] == "<class 'aiballs.ball.Ball'>":
             balls.append(Ball())
-        print(i)
         balls[i].mass = ball['mass']
         balls[i].pos = Vector(ball['posX'], ball['posY'])
         balls[i].velocity = Vector(ball['velocityX'], ball['velocityY'])
         balls[i].color = pygame.Color(ball['color'])
+        if 'texture' in ball:
+            if 'child_texture' in ball:
+                balls[i].load_image(
+                    os.path.dirname(__file__) + f'/data/images/{ball["texture"]}.png', 
+                    child_filename=os.path.dirname(__file__) + f'/data/images/{ball["child_texture"]}.png'
+                )
+            else:
+                balls[i].load_image(
+                    os.path.dirname(__file__) + f'/data/images/{ball["texture"]}.png'
+                )
+        
         i += 1
 
     return balls
