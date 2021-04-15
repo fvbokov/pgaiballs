@@ -1,6 +1,5 @@
 """Functions that process collision-related event."""
 import math
-import pygame
 
 def distance(pos1, pos2):
     return math.sqrt((pos1.x - pos2.x)**2 + (pos1.y - pos2.y)**2)

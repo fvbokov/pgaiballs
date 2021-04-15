@@ -14,7 +14,6 @@ def to_json(filename, balls):
 
     i = 0
     for ball in balls:
-        print(ball.control)
         ball_dicts.append(dict())
         ball_dicts[i]['type'] = str(type(ball))
         ball_dicts[i]['mass'] = ball.mass

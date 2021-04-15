@@ -2,19 +2,34 @@
     "Level": [
         {
             "type": "<class 'aiballs.aiballs.PlayerCharacter'>",
-            "mass": 12413944.892492883,
-            "posX": 350.05036960607083,
-            "posY": 398.0510514710822,
-            "velocityX": -63.2146486356672,
-            "velocityY": -44.32556711739281,
+            "mass": 12394367.434344292,
+            "posX": 656.4360984134075,
+            "posY": 280.03770468603983,
+            "velocityX": -282.0611937146608,
+            "velocityY": 11.381734113870534,
             "color": [
                 0,
                 255,
                 0,
                 255
             ],
-            "texture": "shroom",
-            "child_texture": "leaf"
+            "texture": "shuriken",
+            "child_texture": "wheel"
+        },
+        {
+            "type": "<class 'aiballs.ball.Ball'>",
+            "mass": 18133.365909874472,
+            "posX": 71.31348927556112,
+            "posY": 505.9069323808823,
+            "velocityX": -1171.6918995074652,
+            "velocityY": 1097.7782434013086,
+            "color": [
+                0,
+                255,
+                0,
+                255
+            ],
+            "texture": "wheel"
         }
     ]
 }

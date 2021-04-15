@@ -4,7 +4,7 @@ import math
 import pygame
 import pygame.gfxdraw
 from pygame.math import Vector2 as Vector
-from pygame.surface import Surface
+
 
 class Ball:
     """Every ball that moves in the game.
@@ -109,7 +109,8 @@ class Ball:
         delta_v.rotate_ip_rad(angle)
         child.velocity = self.velocity + delta_v
 
-        self.velocity = ((self.mass + child.mass) * self.velocity - child.impulse) / self.mass      
+        self.velocity = ((self.mass + child.mass) * self.velocity - child.impulse) / self.mass  
+
         child.load_image(self.child_texture_name)
         balls.append(child)
 
@@ -117,7 +118,6 @@ class Ball:
         pass
 
     def get_angle(self, x, y):
-        print('angle ' + str(math.atan2(y - self.pos.y, x - self.pos.x)) + 'pos ' + str(x) + ', ' + str(y))
         return math.atan2(y - self.pos.y, x - self.pos.x)
 
 def rotate(surface, angle):

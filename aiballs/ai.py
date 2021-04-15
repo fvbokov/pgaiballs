@@ -21,7 +21,6 @@ def ai(self, balls):
         distance_to_nearest = distance(self.pos, nearest_ball.pos)
         for ball in balls_copy:
             if distance(self.pos, ball.pos) < distance_to_nearest and self is not ball:
-                print('distance: ' + str(distance(self.pos, ball.pos)))
                 nearest_ball = ball
                 distance_to_nearest = distance(self.pos, ball.pos)
 
