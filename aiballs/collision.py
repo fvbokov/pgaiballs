@@ -44,6 +44,4 @@ def on_collision(ball1, ball2):
     ball1.velocity = v1new
     ball2.velocity = v2new
     
-    ball1.update_texture_scale()
-    ball2.update_texture_scale()
-    
+   
