@@ -1,7 +1,6 @@
 """Game loop"""
 
 from .game import Game
-from .menu import Menu
 from .ball import Ball
 from .ai import mouse_control
 
@@ -13,4 +12,4 @@ game = Game()
 game.init()
 
 def play():
-    game.play(Menu())
+    game.play()

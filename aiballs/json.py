@@ -1,4 +1,4 @@
-"""Functions that export and import levels of the game as json file"""
+"""Functions that export and import levels of the game as json files."""
 import json
 import os
 from pathlib import Path
@@ -33,10 +33,13 @@ def to_json(filename, balls):
         json.dump(export, f, indent='    ', ensure_ascii=False) 
   
 def from_json(filename):
+    if filename is None:
+        return None
+
     balls = list()
     data = dict()
 
-    from .aiballs import PlayerCharacter
+    from .aiballs_ import PlayerCharacter
 
     with open(filename, 'r', encoding='utf-8') as f:
         data = json.load(f)        
