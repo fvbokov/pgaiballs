@@ -1,9 +1,22 @@
 """Mouse state processing"""
 from pygame import mouse
+from pygame.math import Vector2 as Vector
 
 class Mouse:
     """Class containg mouse state and mouse update function. Call it in main loop"""
     state = 'released'
+
+    @classmethod
+    def x(cls):
+        return mouse.get_pos[0]
+
+    @classmethod
+    def y(cls):
+        return mouse.get_pos[1]
+
+    @classmethod
+    def pos(cls):
+        return Vector(mouse.get_pos())
 
     @classmethod
     def update(cls):

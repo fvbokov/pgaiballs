@@ -8,7 +8,7 @@ class FpsDisplay:
     def __init__(self, clock, color = None, font = None):
         self.clock = clock
         self.color = color or pygame.Color('coral')  # If color is None, then self.color is a default argument
-        self.font = font or pygame.font.Font(os.path.dirname(__file__) + '/data/fonts/font.ttf', 18) 
+        self.font = font or pygame.font.Font(os.path.dirname(__file__) + '/data/fonts/RamsBlack.otf', 18) 
 
     def draw(self, window):
         fps = str(int(self.clock.get_fps()))

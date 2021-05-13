@@ -1,3 +1,4 @@
+from aiballs.level_scene import LevelScene
 import os, sys
 
 import pygame_gui
@@ -7,6 +8,7 @@ from .game import Game
 from .scene import Scene
 from .level_selection import LevelSelection
 from .level import Level
+from .level_scene import LevelScene
 from .fps import FpsDisplay
 
 class Menu(Scene):
@@ -35,7 +37,7 @@ class Menu(Scene):
                 if event.type == pygame.USEREVENT:
                     if event.user_type == pygame_gui.UI_BUTTON_PRESSED:
                         if event.ui_element == button_play:
-                            return Level(json='level1.json')
+                            return LevelScene(Level.from_json('level1.json'))
                 manager.process_events(event)
 
             manager.update(dt)

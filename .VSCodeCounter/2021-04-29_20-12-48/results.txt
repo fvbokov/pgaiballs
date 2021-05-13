@@ -1,0 +1,50 @@
+Date : 2021-04-29 20:12:48
+Directory : c:\Users\Fedor\Desktop\Projects\python_projects\pgaiballs
+Total : 21 files,  530 codes, 29 comments, 125 blanks, all 684 lines
+
+Languages
++----------+------------+------------+------------+------------+------------+
+| language | files      | code       | comment    | blank      | total      |
++----------+------------+------------+------------+------------+------------+
+| Python   |         17 |        393 |         29 |        122 |        544 |
+| JSON     |          4 |        137 |          0 |          3 |        140 |
++----------+------------+------------+------------+------------+------------+
+
+Directories
++------------------------------------------------------------------------------------------------+------------+------------+------------+------------+------------+
+| path                                                                                           | files      | code       | comment    | blank      | total      |
++------------------------------------------------------------------------------------------------+------------+------------+------------+------------+------------+
+| .                                                                                              |         21 |        530 |         29 |        125 |        684 |
+| aiballs                                                                                        |         18 |        440 |         29 |        123 |        592 |
+| aiballs\data                                                                                   |          2 |         56 |          0 |          3 |         59 |
+| aiballs\data\button_theme                                                                      |          1 |         35 |          0 |          0 |         35 |
+| aiballs\data\level                                                                             |          1 |         21 |          0 |          3 |         24 |
++------------------------------------------------------------------------------------------------+------------+------------+------------+------------+------------+
+
+Files
++------------------------------------------------------------------------------------------------+----------+------------+------------+------------+------------+
+| filename                                                                                       | language | code       | comment    | blank      | total      |
++------------------------------------------------------------------------------------------------+----------+------------+------------+------------+------------+
+| c:\Users\Fedor\Desktop\Projects\python_projects\pgaiballs\aiballs\__init__.py                  | Python   |          1 |          1 |          1 |          3 |
+| c:\Users\Fedor\Desktop\Projects\python_projects\pgaiballs\aiballs\__main__.py                  | Python   |          5 |          0 |          1 |          6 |
+| c:\Users\Fedor\Desktop\Projects\python_projects\pgaiballs\aiballs\ai.py                        | Python   |         20 |          1 |          7 |         28 |
+| c:\Users\Fedor\Desktop\Projects\python_projects\pgaiballs\aiballs\aiballs.py                   | Python   |         10 |          2 |          4 |         16 |
+| c:\Users\Fedor\Desktop\Projects\python_projects\pgaiballs\aiballs\aiballs_.py                  | Python   |          9 |          2 |          4 |         15 |
+| c:\Users\Fedor\Desktop\Projects\python_projects\pgaiballs\aiballs\ball.py                      | Python   |         88 |          9 |         31 |        128 |
+| c:\Users\Fedor\Desktop\Projects\python_projects\pgaiballs\aiballs\collision.py                 | Python   |         32 |          1 |         13 |         46 |
+| c:\Users\Fedor\Desktop\Projects\python_projects\pgaiballs\aiballs\data\button_theme\theme.json | JSON     |         35 |          0 |          0 |         35 |
+| c:\Users\Fedor\Desktop\Projects\python_projects\pgaiballs\aiballs\data\level\level.json        | JSON     |         21 |          0 |          3 |         24 |
+| c:\Users\Fedor\Desktop\Projects\python_projects\pgaiballs\aiballs\fps.py                       | Python   |         11 |          2 |          7 |         20 |
+| c:\Users\Fedor\Desktop\Projects\python_projects\pgaiballs\aiballs\game.py                      | Python   |         33 |          1 |          8 |         42 |
+| c:\Users\Fedor\Desktop\Projects\python_projects\pgaiballs\aiballs\json.py                      | Python   |         57 |          1 |         13 |         71 |
+| c:\Users\Fedor\Desktop\Projects\python_projects\pgaiballs\aiballs\level.py                     | Python   |         43 |          2 |         11 |         56 |
+| c:\Users\Fedor\Desktop\Projects\python_projects\pgaiballs\aiballs\level_selection.py           | Python   |         10 |          0 |          3 |         13 |
+| c:\Users\Fedor\Desktop\Projects\python_projects\pgaiballs\aiballs\menu.py                      | Python   |         39 |          0 |         12 |         51 |
+| c:\Users\Fedor\Desktop\Projects\python_projects\pgaiballs\aiballs\mouse.py                     | Python   |         17 |          2 |          3 |         22 |
+| c:\Users\Fedor\Desktop\Projects\python_projects\pgaiballs\aiballs\scene.py                     | Python   |          5 |          1 |          1 |          7 |
+| c:\Users\Fedor\Desktop\Projects\python_projects\pgaiballs\aiballs\scene_end.py                 | Python   |          4 |          4 |          1 |          9 |
+| c:\Users\Fedor\Desktop\Projects\python_projects\pgaiballs\level1.json                          | JSON     |         35 |          0 |          0 |         35 |
+| c:\Users\Fedor\Desktop\Projects\python_projects\pgaiballs\setup.py                             | Python   |          9 |          0 |          2 |         11 |
+| c:\Users\Fedor\Desktop\Projects\python_projects\pgaiballs\template.json                        | JSON     |         46 |          0 |          0 |         46 |
+| Total                                                                                          |          |        530 |         29 |        125 |        684 |
++------------------------------------------------------------------------------------------------+----------+------------+------------+------------+------------+

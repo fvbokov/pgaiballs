@@ -5,10 +5,14 @@ from pygame import mouse
 
 from .mouse import Mouse
 from .collision import distance
+from .useraction import MouseClick
 
 def mouse_control(self, balls):
-    if Mouse.state == 'pressing':
-        self.move(math.atan2(mouse.get_pos()[1] - self.pos.y, mouse.get_pos()[0] - self.pos.x), balls)
+    for action in self.level.user_actions:
+        if isinstance(action, MouseClick) and action.button == 'left':
+            self.move(math.atan2(action.pos[1] - self.pos.y, action.pos[0] - self.pos.x), balls)
+
+    self.level.user_actions = []
 
 def ai(self, balls):
     if Mouse.state == 'pressing' and len(balls) > 1:

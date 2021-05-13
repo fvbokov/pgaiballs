@@ -27,6 +27,8 @@ class Ball:
         self.texture_name = None
         self.child_texture_name = None
 
+        self.level = None
+
     def update_texture(self):
         #rotating and scaling---
         self.rotation_angle += 1
@@ -57,12 +59,13 @@ class Ball:
         if child_filename is not None:
             self.child_texture_name = child_filename
 
-    def draw(self, window):
+    def draw(self, surface, scale, offset):
         if self.has_image:
             self.update_texture()
-            window.blit(self.texture, self.texture_pos)
+            surface.blit(self.texture, scale * (self.texture_pos - offset))
         else:
-            pygame.draw.circle(window, self.color, (int(self.pos.x), int(self.pos.y)), int(self.radius))
+            pos_pixels = scale * (self.pos - offset)
+            pygame.draw.circle(surface, self.color, (int(pos_pixels.x), int(pos_pixels.y)), int(self.radius))
 
     @property
     def radius(self):
@@ -75,20 +78,24 @@ class Ball:
     @property
     def impulse(self):
         return self.mass * self.velocity
+
+    @property
+    def destroyed(self):
+        return self.radius < 3
        
-    def borders(self, window):
+    def borders(self, width, height):
         if self.pos.x - self.radius <= 0:
             self.velocity.x *= -1
             self.pos.x = self.radius
-        if self.pos.x + self.radius >= window.get_size()[0]:
+        if self.pos.x + self.radius >= width:
             self.velocity.x *= -1
-            self.pos.x = window.get_size()[0] - self.radius
+            self.pos.x = width - self.radius
         if self.pos.y - self.radius <= 0:
             self.velocity.y *= -1
             self.pos.y = self.radius
-        if self.pos.y + self.radius >= window.get_size()[1]:
+        if self.pos.y + self.radius >= height:
             self.velocity.y *= -1
-            self.pos.y = window.get_size()[1] - self.radius
+            self.pos.y = height - self.radius
        
     def physics(self, milliseconds):
         self.pos.x += self.velocity.x * milliseconds/1000
@@ -113,7 +120,7 @@ class Ball:
 
         child.load_image(self.child_texture_name)
         balls.append(child)
-
+    
     def control(self, balls):
         pass
 

@@ -1,5 +1,8 @@
 {
-    "Level": [
+    "level": {
+        "width" : 4000,
+        "height" : 4000,
+        "balls": [
         {
             "type": "<class 'aiballs.aiballs.PlayerCharacter'>",
             "mass": 9760837.116691343,
@@ -32,4 +35,5 @@
             "texture": "wheel"
         }
     ]
+    }
 }
