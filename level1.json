@@ -1,15 +1,15 @@
 {
     "level": {
-        "width" : 4000,
-        "height" : 4000,
+        "width" : 800,
+        "height" : 600,
         "balls": [
         {
             "type": "<class 'aiballs.aiballs.PlayerCharacter'>",
             "mass": 9760837.116691343,
-            "posX": 271.44856710810757,
-            "posY": 317.1943915581271,
-            "velocityX": 86.30962612288167,
-            "velocityY": 23.442182578676565,
+            "posX": 0.44856710810757,
+            "posY": 0.1943915581271,
+            "velocityX": 0.30962612288167,
+            "velocityY": 0.442182578676565,
             "color": [
                 0,
                 255,

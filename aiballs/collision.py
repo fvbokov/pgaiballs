@@ -42,5 +42,28 @@ def on_collision(ball1, ball2):
 
     ball1.velocity = v1new
     ball2.velocity = v2new
+
+def distance_to_line(A, B, P):  # AB - Line, P - point
+    """length of normfal from point on line"""
+    return (abs((B.x - A.x) * (A.y - P.y) - (A.x - P.x) * (B.y - A.y)) / distance(A, B))
+
+def normal_base(index1, index2, points, P):
+    index3 = None
+    if index1 == 0 and index2 == 1:
+        index3 = 2
+    if index1 == 1 and index2 == 2:
+        index3 = 3
+    if index1 == 2 and index2 == 3:
+        index3 = 0
+    if index1 == 3 and index2 == 0:
+        index3 = 1
+    
+    v = (points[index3] - points[index2])
+    v.scale_to_length(distance_to_line(points[index1], points[index2], P)) 
+    rslt = P + v
+    return rslt
+
+def point_belongs(P, A, B):
+    return distance(P, A) + distance(P, B) == distance(A, B)
     
    

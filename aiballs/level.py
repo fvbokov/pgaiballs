@@ -1,17 +1,22 @@
 import json
+from math import pi
 import os
 from pathlib import Path
 
 import pygame
+from pygame import math
 from pygame.math import Vector2 as Vector
 
 from .ball import Ball
 from .aiballs_ import PlayerCharacter
-from .collision import distance, on_collision
+from .collision import distance, distance_to_line, on_collision, point_belongs, normal_base
+from .wall import Wall
 
 class Level():
     def __init__(self, width, height, balls):
         self.balls = balls
+        self.walls = []
+        self.walls.append(Wall(Vector(400, 300), Vector(100, 100), 0))
 
         self.width = width
         self.height = height
@@ -96,6 +101,7 @@ class Level():
             ball.physics(dt)
             ball.borders(self.width, self.height)
             self.check_collisions(ball)
+            self.wall_collision()
             if self.balls[i].destroyed:
                 self.balls.pop(i)
             i += 1
@@ -103,6 +109,8 @@ class Level():
     def draw(self, surface, scale, offset):
         for ball in self.balls:
             ball.draw(surface, scale, offset)
+        for wall in self.walls:
+            wall.draw(surface, scale, offset)
   
     def check_collisions(self, obj):
         for ball in self.balls:
@@ -117,3 +125,28 @@ class Level():
         for ball in self.balls:
             if isinstance(ball, PlayerCharacter):
                 return ball
+
+    def wall_collision(self):
+        for wall in self.walls:
+            for ball in self.balls:
+                for point in wall.points:
+                    if distance(point, ball.pos) < ball.radius:
+                        ball.velocity = mirror((point - ball.pos).rotate(pi/2), ball.velocity)
+
+                if circle_in_rectangle(0, 1, ball, wall):
+                    ball.velocity = mirror((wall.points[0] - wall.points[1]), ball.velocity)
+                if circle_in_rectangle(1, 2, ball, wall):
+                    ball.velocity = mirror((wall.points[1] - wall.points[2]), ball.velocity)
+                if circle_in_rectangle(2, 3, ball, wall):
+                    ball.velocity = mirror((wall.points[2] - wall.points[3]), ball.velocity)
+                if circle_in_rectangle(3, 0, ball, wall):
+                    ball.velocity = mirror((wall.points[3] - wall.points[0]), ball.velocity)
+                                       
+def circle_in_rectangle(index1, index2, ball, wall):
+    if (distance_to_line(wall.points[index1], wall.points[index2], ball.pos) < ball.radius and 
+        point_belongs(normal_base(index1, index2, wall.points, ball.pos), wall.points[index1], wall.points[index2])):
+            return True
+    return False
+
+def mirror(axis, vec):
+    return vec.rotate_rad(2 * axis.angle_to(vec))
