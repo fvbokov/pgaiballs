@@ -11,6 +11,7 @@ from .ball import Ball
 from .aiballs_ import PlayerCharacter
 from .collision import distance, distance_to_line, on_collision, point_belongs, normal_base
 from .wall import Wall
+from .background import Background
 
 class Level():
     def __init__(self, width, height, balls):
@@ -20,6 +21,8 @@ class Level():
 
         self.width = width
         self.height = height
+
+        self.background = Background((width, height))
 
         self.user_actions = []
 
@@ -107,6 +110,7 @@ class Level():
             i += 1
 
     def draw(self, surface, scale, offset):
+        self.background.draw(surface, scale, offset)
         for ball in self.balls:
             ball.draw(surface, scale, offset)
         for wall in self.walls:
