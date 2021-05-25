@@ -135,12 +135,20 @@ class Level():
 
                 if circle_in_rectangle(0, 1, ball, wall):
                     ball.velocity = mirror((wall.points[0] - wall.points[1]), ball.velocity)
+                    offset = ball.velocity.normalize()
+                    ball.pos += 20 * offset
                 if circle_in_rectangle(1, 2, ball, wall):
                     ball.velocity = mirror((wall.points[1] - wall.points[2]), ball.velocity)
+                    offset = ball.velocity.normalize()
+                    ball.pos += 20 * offset
                 if circle_in_rectangle(2, 3, ball, wall):
                     ball.velocity = mirror((wall.points[2] - wall.points[3]), ball.velocity)
+                    offset = ball.velocity.normalize()
+                    ball.pos += 20 * offset
                 if circle_in_rectangle(3, 0, ball, wall):
                     ball.velocity = mirror((wall.points[3] - wall.points[0]), ball.velocity)
+                    offset = ball.velocity.normalize()
+                    ball.pos += 20 * offset
                                        
 def circle_in_rectangle(index1, index2, ball, wall):
     if (distance_to_line(wall.points[index1], wall.points[index2], ball.pos) < ball.radius and 

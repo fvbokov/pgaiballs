@@ -18,7 +18,7 @@ class LevelScene(Scene):
     def __init__(self, level):
         self.scale = 1
         self.level = level
-        self.offset = Vector(0, 0)
+        self.offset = Vector(0, 0)  
 
     def play(self): 
         clock = pygame.time.Clock()
