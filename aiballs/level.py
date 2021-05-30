@@ -1,11 +1,12 @@
 import json
-from math import pi
+from math import pi, cos
 import os
 from pathlib import Path
 
 import pygame
-from pygame import math
+from pygame import Vector2, math
 from pygame.math import Vector2 as Vector
+from pygame.mixer import pause
 
 from .ball import Ball
 from .aiballs_ import PlayerCharacter
@@ -17,7 +18,7 @@ class Level():
     def __init__(self, width, height, balls):
         self.balls = balls
         self.walls = []
-        self.walls.append(Wall(Vector(400, 300), Vector(100, 100), 0))
+        self.walls.append(Wall(Vector(200, 200), Vector(100, 200), pi/4))
 
         self.width = width
         self.height = height
@@ -25,6 +26,7 @@ class Level():
         self.background = Background((width, height))
 
         self.user_actions = []
+        
 
     def to_json(self, path_to_json, balls):
         export = dict()
@@ -68,9 +70,9 @@ class Level():
         
         width = data['level']['width']
         height = data['level']['height']
-
         i = 0
         for ball in data["level"]["balls"]:
+            print(ball['type'])
             if ball['type'] == "<class 'aiballs.aiballs.PlayerCharacter'>":
                 balls.append(PlayerCharacter())
             elif ball['type'] == "<class 'aiballs.ball.Ball'>":
@@ -89,13 +91,12 @@ class Level():
                     balls[i].load_image(
                         os.path.dirname(__file__) + f'/data/images/{ball["texture"]}.png'
                     )
-            
             i += 1
 
-            level = cls(width, height, balls)
-            for ball in level.balls:
-                ball.level = level 
-            return level
+        level = cls(width, height, balls)
+        for ball in level.balls:
+            ball.level = level 
+        return level
 
     def update(self, dt):
         i = 0
@@ -115,6 +116,7 @@ class Level():
             ball.draw(surface, scale, offset)
         for wall in self.walls:
             wall.draw(surface, scale, offset)
+    
   
     def check_collisions(self, obj):
         for ball in self.balls:
@@ -135,24 +137,27 @@ class Level():
             for ball in self.balls:
                 for point in wall.points:
                     if distance(point, ball.pos) < ball.radius:
-                        ball.velocity = mirror((point - ball.pos).rotate(pi/2), ball.velocity)
+                        v = point - ball.pos
+                        v = v.rotate(-90)
+                        v += point
+                        action_on_collision(ball, point, v)
+                        print('отскок кас')
 
                 if circle_in_rectangle(0, 1, ball, wall):
-                    ball.velocity = mirror((wall.points[0] - wall.points[1]), ball.velocity)
-                    offset = ball.velocity.normalize()
-                    ball.pos += 20 * offset
+                    print(ball.velocity)
+                    action_on_collision(ball, wall.points[0], wall.points[1])
+                    
                 if circle_in_rectangle(1, 2, ball, wall):
-                    ball.velocity = mirror((wall.points[1] - wall.points[2]), ball.velocity)
-                    offset = ball.velocity.normalize()
-                    ball.pos += 20 * offset
+                    print('отскок 2')
+                    action_on_collision(ball, wall.points[1], wall.points[2])
+
                 if circle_in_rectangle(2, 3, ball, wall):
-                    ball.velocity = mirror((wall.points[2] - wall.points[3]), ball.velocity)
-                    offset = ball.velocity.normalize()
-                    ball.pos += 20 * offset
+                    print('отскок 3')
+                    action_on_collision(ball, wall.points[2], wall.points[3])
+                    
                 if circle_in_rectangle(3, 0, ball, wall):
-                    ball.velocity = mirror((wall.points[3] - wall.points[0]), ball.velocity)
-                    offset = ball.velocity.normalize()
-                    ball.pos += 20 * offset
+                    print('отскок 4')
+                    action_on_collision(ball, wall.points[3], wall.points[0])
                                        
 def circle_in_rectangle(index1, index2, ball, wall):
     if (distance_to_line(wall.points[index1], wall.points[index2], ball.pos) < ball.radius and 
@@ -161,4 +166,27 @@ def circle_in_rectangle(index1, index2, ball, wall):
     return False
 
 def mirror(axis, vec):
-    return vec.rotate_rad(2 * axis.angle_to(vec))
+    return vec.rotate(2 * vec.angle_to(axis))
+
+def action_on_collision(ball, point1, point2):
+    
+    #offset
+    radius_to_M = point2 - point1
+    
+    radius_to_M = radius_to_M.rotate(90)
+    radius_to_M.scale_to_length(ball.radius)
+    
+    M = radius_to_M + ball.pos
+    
+    dist = distance_to_line(point1, point2, M)
+    
+    vec = (point2 - point1).rotate(-90)
+    vec.scale_to_length(2 * dist)
+    
+    ball.pos += vec
+    #------
+
+    #velocity
+    print('до ', ball.velocity)
+    ball.velocity = mirror((point2 - point1), ball.velocity)
+    print('после', ball.velocity)
