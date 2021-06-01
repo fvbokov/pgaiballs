@@ -1,0 +1,35 @@
+{
+	"button":
+	{
+		"colours":
+		{
+			"normal_bg":"#ff6666",
+			"hovered_bg":"#ff0000",
+			"disabled_bg":"#25292e",
+			"selected_bg":"#cc3300",
+			"active_bg":"#99004d",
+			"dark_bg":"#15191e",
+			"normal_text":"#000000",
+			"hovered_text":"#000000",
+			"selected_text":"#000000",
+			"disabled_text":"#000000",
+			"active_text":"#000000",
+			"normal_border": "#ff6666",
+			"hovered_border": "#ff0000",
+			"disabled_border": "#25292e",
+			"selected_border": "#cc3300",
+			"active_border": "#99004d"
+		},
+		"font":
+         {
+             "name": "button_f",
+             "size": "50",
+             "regular_path": "aiballs/data/fonts/RamsBlack.otf"
+		},
+		"misc":
+		{	
+			"shape" : "rounded_rectangle",
+			"shape_corner_radius" : "16"
+		}
+	}
+}

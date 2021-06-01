@@ -1,24 +1,56 @@
 {
     "level": {
-        "width" : 800,
-        "height" : 600,
+        "width" : 1600,
+        "height" : 900,
         "balls": [
-        {
-            "type": "<class 'aiballs.aiballs.PlayerCharacter'>",
-            "mass": 760837.116691343,
-            "posX": 100,
-            "posY": 500,
-            "velocityX": 0,
-            "velocityY": -20,
-            "color": [
-                0,
-                255,
-                0,
-                255
-            ],
-            "texture": "shuriken",
-            "child_texture": "wheel"
-        }
-    ]
+            {
+                "type": "<class 'aiballs.aiballs.PlayerCharacter'>",
+                "mass": 1060837.116691343,
+                "posX": 100,
+                "posY": 600,
+                "velocityX": 0,
+                "velocityY": -20,
+                "color": [
+                    0,
+                    255,
+                    0,
+                    255
+                ],
+                "texture": "shuriken",
+                "child_texture": "wheel"
+            },
+            {
+                "type": "<class 'aiballs.ball.Ball'>",
+                "mass": 360837.116691343,
+                "posX": 400,
+                "posY": 500,
+                "velocityX": 0,
+                "velocityY": 0,
+                "color": [
+                    0,
+                    255,
+                    0,
+                    255
+                ],
+                "texture": "bubble"
+            }
+
+        ],
+        "walls" : [
+            {
+                "posX" : 200,
+                "posY" : 200,
+                "sizeX" : 100,
+                "sizeY" : 200,
+                "angle" : 0.785
+            },
+            {
+                "posX" : 400,
+                "posY" : 300,
+                "sizeX" : 100,
+                "sizeY" : 200,
+                "angle" : 0.785 
+            }
+        ]
     }
 }

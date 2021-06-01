@@ -1,12 +1,10 @@
 import json
-from math import pi, cos
+from math import pi
 import os
 from pathlib import Path
 
 import pygame
-from pygame import Vector2, math
 from pygame.math import Vector2 as Vector
-from pygame.mixer import pause
 
 from .ball import Ball
 from .aiballs_ import PlayerCharacter
@@ -15,10 +13,10 @@ from .wall import Wall
 from .background import Background
 
 class Level():
-    def __init__(self, width, height, balls):
+    def __init__(self, width, height, balls, walls):
         self.balls = balls
-        self.walls = []
-        self.walls.append(Wall(Vector(200, 200), Vector(100, 200), pi/4))
+        self.walls = walls
+        #self.walls.append(Wall(Vector(200, 200), Vector(100, 200), 0))
 
         self.width = width
         self.height = height
@@ -28,7 +26,7 @@ class Level():
         self.user_actions = []
         
 
-    def to_json(self, path_to_json, balls):
+    def to_json(self, path_to_json):
         export = dict()
         ball_dicts = list()
 
@@ -47,6 +45,7 @@ class Level():
             if ball.child_texture_name is not None:
                 ball_dicts[i]['child_texture'] = Path(ball.child_texture_name).stem
             i += 1
+        
            
         export['level']['width'] = self.width
         export['level']['height'] = self.height
@@ -93,9 +92,17 @@ class Level():
                     )
             i += 1
 
-        level = cls(width, height, balls)
+        walls = []
+        for wall in data["level"]["walls"]:
+            pos = Vector(wall["posX"], wall["posY"])
+            size = Vector(wall["sizeX"], wall["sizeY"])
+            angle = wall["angle"]
+            walls.append(Wall(pos, size, angle))
+
+        level = cls(width, height, balls, walls)
         for ball in level.balls:
-            ball.level = level 
+            ball.level = level
+        
         return level
 
     def update(self, dt):

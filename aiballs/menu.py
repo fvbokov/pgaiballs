@@ -10,6 +10,7 @@ from .level_selection import LevelSelection
 from .level import Level
 from .level_scene import LevelScene
 from .fps import FpsDisplay
+from .options import Options
 
 class Menu(Scene):
     def play(self):
@@ -38,10 +39,13 @@ class Menu(Scene):
                     if event.user_type == pygame_gui.UI_BUTTON_PRESSED:
                         if event.ui_element == button_play:
                             return LevelScene(Level.from_json('level1.json'))
+                        if event.ui_element == button_options:
+                            return Options()
+                        if event.ui_element == button_quit:
+                            sys.exit()
                 manager.process_events(event)
 
             manager.update(dt)
-
             
             Game.window.blit(background, (0, 0)) #---------
 
