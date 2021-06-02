@@ -15,7 +15,7 @@ class Options(Scene):
             os.path.dirname(__file__) + '/data/button_theme/green_theme.json')
 
         button_exit = pygame_gui.elements.UIButton(relative_rect=pygame.Rect((650, 450), (300, 100)),
-            text='Exit Options',  manager=manager)
+            text='Back',  manager=manager)
         
         button_show_fps = pygame_gui.elements.UIButton(relative_rect=pygame.Rect((300, 275), (300, 100)),
             text='Show FPS', manager=manager)

@@ -5,11 +5,11 @@
         "balls": [
             {
                 "type": "<class 'aiballs.aiballs.PlayerCharacter'>",
-                "mass": 1060837.116691343,
-                "posX": 100,
-                "posY": 600,
-                "velocityX": 0,
-                "velocityY": -20,
+                "mass": 837.116691343,
+                "posX": 400,
+                "posY": 250,
+                "velocityX": -2000,
+                "velocityY": 0,
                 "color": [
                     0,
                     255,
@@ -18,23 +18,7 @@
                 ],
                 "texture": "shuriken",
                 "child_texture": "wheel"
-            },
-            {
-                "type": "<class 'aiballs.ball.Ball'>",
-                "mass": 360837.116691343,
-                "posX": 400,
-                "posY": 500,
-                "velocityX": 0,
-                "velocityY": 0,
-                "color": [
-                    0,
-                    255,
-                    0,
-                    255
-                ],
-                "texture": "bubble"
             }
-
         ],
         "walls" : [
             {
@@ -42,14 +26,7 @@
                 "posY" : 200,
                 "sizeX" : 100,
                 "sizeY" : 200,
-                "angle" : 0.785
-            },
-            {
-                "posX" : 400,
-                "posY" : 300,
-                "sizeX" : 100,
-                "sizeY" : 200,
-                "angle" : 0.785 
+                "angle" : 0
             }
         ]
     }

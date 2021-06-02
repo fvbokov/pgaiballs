@@ -8,7 +8,7 @@ from pygame.math import Vector2 as Vector
 
 from .ball import Ball
 from .aiballs_ import PlayerCharacter
-from .collision import distance, distance_to_line, on_collision, point_belongs, normal_base
+from .collision import distance, distance_to_line, on_collision, point_belongs, normal_base, segments_intersection, in_rectangle
 from .wall import Wall
 from .background import Background
 
@@ -142,28 +142,39 @@ class Level():
     def wall_collision(self):
         for wall in self.walls:
             for ball in self.balls:
+
+                if in_rectangle(ball.pos, wall.points):
+                    print('внутри стены')
+                    for index in range(-1, 3):
+                        if segments_intersection(ball.pos - ball.velocity, 
+                            ball.pos, wall.points[index], wall.points[index + 1]) != None:
+                            print('с какой', index)
+                            action_on_collision(ball, wall.points[index], wall.points[index + 1])
+                            break
+
+
                 for point in wall.points:
                     if distance(point, ball.pos) < ball.radius:
                         v = point - ball.pos
                         v = v.rotate(-90)
                         v += point
                         action_on_collision(ball, point, v)
-                        print('отскок кас')
+                       
 
                 if circle_in_rectangle(0, 1, ball, wall):
-                    print(ball.velocity)
+                    
                     action_on_collision(ball, wall.points[0], wall.points[1])
                     
                 if circle_in_rectangle(1, 2, ball, wall):
-                    print('отскок 2')
+                    
                     action_on_collision(ball, wall.points[1], wall.points[2])
 
                 if circle_in_rectangle(2, 3, ball, wall):
-                    print('отскок 3')
+                    
                     action_on_collision(ball, wall.points[2], wall.points[3])
                     
                 if circle_in_rectangle(3, 0, ball, wall):
-                    print('отскок 4')
+                    
                     action_on_collision(ball, wall.points[3], wall.points[0])
                                        
 def circle_in_rectangle(index1, index2, ball, wall):
@@ -194,6 +205,7 @@ def action_on_collision(ball, point1, point2):
     #------
 
     #velocity
-    print('до ', ball.velocity)
+  
     ball.velocity = mirror((point2 - point1), ball.velocity)
-    print('после', ball.velocity)
+    
+
