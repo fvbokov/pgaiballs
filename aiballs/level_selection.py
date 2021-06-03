@@ -1,4 +1,4 @@
-import pygame
+"""import pygame
 
 from .scene import Scene
 from .level import Level
@@ -10,4 +10,4 @@ class LevelSelection(Scene):
                             text='play', manager=manager)
         
         background = pygame.image.load(os.path.dirname(__file__) + f'/data/images/menu_background.png')
-        background = pygame.transform.scale(background, (Game.window.get_width(), Game.window.get_height()))
+        background = pygame.transform.scale(background, (Game.window.get_width(), Game.window.get_height()))"""

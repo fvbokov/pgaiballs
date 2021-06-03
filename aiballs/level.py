@@ -23,8 +23,7 @@ class Level():
 
         self.background = Background((width, height))
 
-        self.user_actions = []
-        
+        self.user_actions = []     
 
     def to_json(self, path_to_json):
         export = dict()
@@ -124,7 +123,6 @@ class Level():
         for wall in self.walls:
             wall.draw(surface, scale, offset)
     
-  
     def check_collisions(self, obj):
         for ball in self.balls:
             if obj is not ball:

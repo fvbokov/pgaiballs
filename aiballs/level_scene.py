@@ -12,6 +12,7 @@ from .mouse import Mouse
 from .fps import FpsDisplay
 from .useraction import MouseClick
 from .wall import Wall
+from .pause import PauseButton
 
 class LevelScene(Scene):
     """Class with constructor, ball add function, process balls with play and check_collisions"""
@@ -19,7 +20,8 @@ class LevelScene(Scene):
         self.scale = 1
         self.level = level
         self.offset = Vector(0, 0)  
-
+        self.pause = PauseButton()
+    
     def play(self): 
         clock = pygame.time.Clock()
         fps_display = FpsDisplay(clock)
@@ -39,8 +41,12 @@ class LevelScene(Scene):
                 mouse_pos = (mouse_window_pos / self.scale) + self.offset
                 self.level.user_actions.append(MouseClick('left', mouse_pos))
                
-            self.level.update(dt)
+            if not self.pause.paused:
+                self.level.update(dt)
             self.level.draw(Game.window, self.scale, self.offset)
+            
+            self.pause.update()
+            self.pause.draw(Game.window)
 
             if Game.show_fps:
                 fps_display.draw(Game.window)

@@ -6,7 +6,6 @@ import pygame
 
 from .game import Game
 from .scene import Scene
-from .level_selection import LevelSelection
 from .level import Level
 from .level_scene import LevelScene
 from .fps import FpsDisplay

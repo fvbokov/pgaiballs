@@ -5,10 +5,10 @@
         "balls": [
             {
                 "type": "<class 'aiballs.aiballs.PlayerCharacter'>",
-                "mass": 837.116691343,
+                "mass": 115837.116691343,
                 "posX": 400,
                 "posY": 250,
-                "velocityX": -2000,
+                "velocityX": 0,
                 "velocityY": 0,
                 "color": [
                     0,
