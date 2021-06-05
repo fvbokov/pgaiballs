@@ -1,3 +1,4 @@
+from aiballs.context import Context
 import json
 from math import pi
 import os
@@ -7,7 +8,7 @@ import pygame
 from pygame.math import Vector2 as Vector
 
 from .ball import Ball
-from .aiballs_ import PlayerCharacter
+from .player import PlayerCharacter
 from .collision import distance, distance_to_line, on_collision, point_belongs, normal_base, segments_intersection, in_rectangle
 from .wall import Wall
 from .background import Background
@@ -16,14 +17,18 @@ class Level():
     def __init__(self, width, height, balls, walls):
         self.balls = balls
         self.walls = walls
-        #self.walls.append(Wall(Vector(200, 200), Vector(100, 200), 0))
-
+    
         self.width = width
         self.height = height
 
         self.background = Background((width, height))
 
-        self.user_actions = []     
+        self.user_actions = []
+
+        self.timers = {}
+        self.active_timers = set()    
+
+        self.context = Context(self.get_player_character(), None, None, None)
 
     def to_json(self, path_to_json):
         export = dict()
@@ -61,7 +66,7 @@ class Level():
         balls = list()
         data = dict()
 
-        from .aiballs_ import PlayerCharacter
+        from .player import PlayerCharacter
 
         with open(path_to_json, 'r', encoding='utf-8') as f:
             data = json.load(f)        
@@ -70,8 +75,7 @@ class Level():
         height = data['level']['height']
         i = 0
         for ball in data["level"]["balls"]:
-            print(ball['type'])
-            if ball['type'] == "<class 'aiballs.aiballs.PlayerCharacter'>":
+            if ball['type'] == "<class 'aiballs.player.PlayerCharacter'>":
                 balls.append(PlayerCharacter())
             elif ball['type'] == "<class 'aiballs.ball.Ball'>":
                 balls.append(Ball())
@@ -105,9 +109,9 @@ class Level():
         return level
 
     def update(self, dt):
+        self.get_player_character().control(self.context)
         i = 0
         for ball in self.balls:
-            ball.control(self.balls)
             ball.physics(dt)
             ball.borders(self.width, self.height)
             self.check_collisions(ball)
@@ -115,6 +119,11 @@ class Level():
             if self.balls[i].destroyed:
                 self.balls.pop(i)
             i += 1
+        
+        non_active_keys = self.timers.keys() - self.active_timers
+        for key in non_active_keys:
+            self.timers.pop(key)
+        self.active_timers = set()
 
     def draw(self, surface, scale, offset):
         self.background.draw(surface, scale, offset)
@@ -142,11 +151,9 @@ class Level():
             for ball in self.balls:
 
                 if in_rectangle(ball.pos, wall.points):
-                    print('внутри стены')
                     for index in range(-1, 3):
                         if segments_intersection(ball.pos - ball.velocity, 
                             ball.pos, wall.points[index], wall.points[index + 1]) != None:
-                            print('с какой', index)
                             action_on_collision(ball, wall.points[index], wall.points[index + 1])
                             break
 

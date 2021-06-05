@@ -7,10 +7,10 @@ from .mouse import Mouse
 from .collision import distance
 from .useraction import MouseClick
 
-def mouse_control(self, balls):
+def mouse_control(self):
     for action in self.level.user_actions:
         if isinstance(action, MouseClick) and action.button == 'left':
-            self.move(math.atan2(action.pos[1] - self.pos.y, action.pos[0] - self.pos.x), balls)
+            self.move(math.atan2(action.pos[1] - self.pos.y, action.pos[0] - self.pos.x))
 
     self.level.user_actions = []
 
@@ -28,4 +28,4 @@ def ai(self, balls):
                 nearest_ball = ball
                 distance_to_nearest = distance(self.pos, ball.pos)
 
-        self.move(math.pi + self.get_angle(nearest_ball.pos.x, nearest_ball.pos.y), balls)
+        self.move(math.pi + self.get_angle(nearest_ball.pos.x, nearest_ball.pos.y))

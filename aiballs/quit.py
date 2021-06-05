@@ -1,10 +1,25 @@
+import os
+
 import pygame
+from pygame.math import Vector2
 
 from .game import Game
-class QuitButton:
-    def __init__(self):
-        self.rect = pygame.Rect(Game.window.get_width() - 120, 140, 70, 80)
-        self.color = pygame.Color(255, 102, 0)
+from .button import Button
+
+class QuitButton(Button):
+    def __init__(self, pos=None):
+        super().__init__(pos or Vector2(Game.window.get_width() - 120, 290))
+        self.image = pygame.image.load(os.path.dirname(__file__) + '/data/images/door-opened.png')
+        self.image = pygame.transform.scale(self.image, (100, 100))
     
     def draw(self, surface):
-        pygame.draw.line(self.rect.)
+        surface.blit(self.texture, self.pos)
+        surface.blit(self.image, self.pos)
+
+    def update(self):
+        super().update()
+        if self.pressed:
+            return True
+        else:
+            return False
+

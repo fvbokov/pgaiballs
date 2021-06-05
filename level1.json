@@ -4,7 +4,7 @@
         "height" : 900,
         "balls": [
             {
-                "type": "<class 'aiballs.aiballs.PlayerCharacter'>",
+                "type": "<class 'aiballs.player.PlayerCharacter'>",
                 "mass": 115837.116691343,
                 "posX": 400,
                 "posY": 250,

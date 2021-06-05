@@ -101,7 +101,7 @@ class Ball:
         self.pos.x += self.velocity.x * milliseconds/1000
         self.pos.y += self.velocity.y * milliseconds/1000
 
-    def move(self, angle, balls):
+    def move(self, angle):
         child = Ball(self.pos.x, self.pos.y, 0, pygame.Color("Green"))
 
         split_mass = self.mass / 100
@@ -119,9 +119,9 @@ class Ball:
         self.velocity = ((self.mass + child.mass) * self.velocity - child.impulse) / self.mass  
 
         child.load_image(self.child_texture_name)
-        balls.append(child)
+        self.level.balls.append(child)
     
-    def control(self, balls):
+    def control(self):
         pass
 
     def get_angle(self, x, y):
@@ -132,4 +132,3 @@ def rotate(surface, angle):
     rotated_rect = rotated_surface.get_rect()
     rotated_rect.center = (surface.get_width()/2, surface.get_height()/2)
     return rotated_surface, rotated_rect
-    
