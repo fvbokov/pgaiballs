@@ -149,7 +149,6 @@ class Level():
     def wall_collision(self):
         for wall in self.walls:
             for ball in self.balls:
-
                 if in_rectangle(ball.pos, wall.points):
                     for index in range(-1, 3):
                         if segments_intersection(ball.pos - ball.velocity, 
@@ -157,29 +156,20 @@ class Level():
                             action_on_collision(ball, wall.points[index], wall.points[index + 1])
                             break
 
-
                 for point in wall.points:
                     if distance(point, ball.pos) < ball.radius:
                         v = point - ball.pos
                         v = v.rotate(-90)
                         v += point
                         action_on_collision(ball, point, v)
-                       
 
                 if circle_in_rectangle(0, 1, ball, wall):
-                    
                     action_on_collision(ball, wall.points[0], wall.points[1])
-                    
                 if circle_in_rectangle(1, 2, ball, wall):
-                    
                     action_on_collision(ball, wall.points[1], wall.points[2])
-
                 if circle_in_rectangle(2, 3, ball, wall):
-                    
                     action_on_collision(ball, wall.points[2], wall.points[3])
-                    
                 if circle_in_rectangle(3, 0, ball, wall):
-                    
                     action_on_collision(ball, wall.points[3], wall.points[0])
                                        
 def circle_in_rectangle(index1, index2, ball, wall):

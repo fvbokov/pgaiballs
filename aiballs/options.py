@@ -14,7 +14,7 @@ class Options(Scene):
         green = pygame_gui.UIManager((Game.window.get_width(), Game.window.get_height()), 
             os.path.dirname(__file__) + '/data/button_theme/green_theme.json')
 
-        button_exit = pygame_gui.elements.UIButton(relative_rect=pygame.Rect((650, 450), (300, 100)),
+        button_exit = pygame_gui.elements.UIButton(relative_rect=pygame.Rect((1000, 650), (300, 100)),
             text='Back',  manager=manager)
         
         button_show_fps = pygame_gui.elements.UIButton(relative_rect=pygame.Rect((300, 275), (300, 100)),
@@ -24,7 +24,7 @@ class Options(Scene):
         button_show_fpsG = pygame_gui.elements.UIButton(relative_rect=pygame.Rect((300, 275), (300, 100)),
             text='Show FPS', manager=green)
         
-        background = pygame.image.load(os.path.dirname(__file__) + '/data/images/menu_background2.png')
+        background = pygame.image.load(os.path.dirname(__file__) + '/data/images/menu_background3.png')
         background = pygame.transform.scale(background, (Game.window.get_width(), Game.window.get_height()))
 
         clock = pygame.time.Clock()

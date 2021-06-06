@@ -19,6 +19,8 @@ class Button(ABC):
 
         self.contains_mouse = None
         self.pressed = None
+
+        self.disabled = False
             
     def update(self):
         rect = pygame.Rect(self.pos, self.size)
@@ -32,7 +34,8 @@ class Button(ABC):
                 self.texture = self.texture_hovered
                 self.pressed = False
             if Mouse.state == 'releasing':
-                self.pressed = True
+                if self.disabled == False:
+                    self.pressed = True
         else:
             self.pressed = False
             self.contains_mouse = False
