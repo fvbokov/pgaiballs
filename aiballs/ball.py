@@ -58,7 +58,7 @@ class Ball:
         
         if child_filename is not None:
             self.child_texture_name = child_filename
-
+        
     def draw(self, surface, scale, offset):
         if self.has_image:
             self.update_texture()

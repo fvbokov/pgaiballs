@@ -54,6 +54,10 @@ class LevelScene(Scene):
             with open(os.path.dirname(__file__) + '/data/code/test.py', 'r') as f:
                 code = f.read()
             if not (copy == code):
+                spec = importlib.util.spec_from_file_location('AI', self.notepad.filename)
+                module = importlib.util.module_from_spec(spec)
+                spec.loader.exec_module(module)
+                player.control = module.ai
                 self.pause.disabled = False
 
             dt = clock.tick(Game.FPS) 

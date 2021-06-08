@@ -9,9 +9,9 @@ from pygame.math import Vector2 as Vector
 
 from .ball import Ball
 from .player import PlayerCharacter
-from .collision import distance, distance_to_line, on_collision, point_belongs, normal_base, segments_intersection, in_rectangle
-from .wall import Wall
+from .collision import distance, on_collision, wall_ball_collision
 from .background import Background
+from .wall import Wall
 
 class Level():
     def __init__(self, width, height, balls, walls):
@@ -149,58 +149,5 @@ class Level():
     def wall_collision(self):
         for wall in self.walls:
             for ball in self.balls:
-                if in_rectangle(ball.pos, wall.points):
-                    for index in range(-1, 3):
-                        if segments_intersection(ball.pos - ball.velocity, 
-                            ball.pos, wall.points[index], wall.points[index + 1]) != None:
-                            action_on_collision(ball, wall.points[index], wall.points[index + 1])
-                            break
-
-                for point in wall.points:
-                    if distance(point, ball.pos) < ball.radius:
-                        v = point - ball.pos
-                        v = v.rotate(-90)
-                        v += point
-                        action_on_collision(ball, point, v)
-
-                if circle_in_rectangle(0, 1, ball, wall):
-                    action_on_collision(ball, wall.points[0], wall.points[1])
-                if circle_in_rectangle(1, 2, ball, wall):
-                    action_on_collision(ball, wall.points[1], wall.points[2])
-                if circle_in_rectangle(2, 3, ball, wall):
-                    action_on_collision(ball, wall.points[2], wall.points[3])
-                if circle_in_rectangle(3, 0, ball, wall):
-                    action_on_collision(ball, wall.points[3], wall.points[0])
+                wall_ball_collision(ball, wall)
                                        
-def circle_in_rectangle(index1, index2, ball, wall):
-    if (distance_to_line(wall.points[index1], wall.points[index2], ball.pos) < ball.radius and 
-        point_belongs(normal_base(index1, index2, wall.points, ball.pos), wall.points[index1], wall.points[index2])):
-            return True
-    return False
-
-def mirror(axis, vec):
-    return vec.rotate(2 * vec.angle_to(axis))
-
-def action_on_collision(ball, point1, point2):
-    
-    #offset
-    radius_to_M = point2 - point1
-    
-    radius_to_M = radius_to_M.rotate(90)
-    radius_to_M.scale_to_length(ball.radius)
-    
-    M = radius_to_M + ball.pos
-    
-    dist = distance_to_line(point1, point2, M)
-    
-    vec = (point2 - point1).rotate(-90)
-    vec.scale_to_length(2 * dist)
-    
-    ball.pos += vec
-    #------
-
-    #velocity
-  
-    ball.velocity = mirror((point2 - point1), ball.velocity)
-    
-

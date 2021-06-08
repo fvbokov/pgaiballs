@@ -4,13 +4,14 @@ from pygame.math import Vector2 as Vector
 from pygame import Color as Color 
 
 class Wall:
-    def __init__(self, pos, size, angle):
+    def __init__(self, pos, size, angle, texture_filename=None):
         self.color = Color(120, 89, 94)
 
         points = [pos, Vector(pos.x + size.x, pos.y), 
             Vector(pos.x + size.x, pos.y + size.y), Vector(pos.x, pos.y + size.y)]
         self.points = points
         self.points = rotate_rectangle(self.points, angle)
+        self.texture_filename = texture_filename
         
     def draw(self, surface, scale, offset):
         pixel_points = []
