@@ -64,7 +64,7 @@ class LevelScene(Scene):
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
                     pygame.quit()
-                    sys.exit()
+                    return None
             self.follow_ball(player)
             Game.window.fill(pygame.Color(0, 0, 0))
             Mouse.update()
