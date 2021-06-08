@@ -1,10 +1,10 @@
 """Class that presents main game structure - ball"""
 import math
+from functools import cache
 
 import pygame
 import pygame.gfxdraw
 from pygame.math import Vector2 as Vector
-
 
 class Ball:
     """Every ball that moves in the game.
@@ -33,7 +33,7 @@ class Ball:
         #rotating and scaling---
         self.rotation_angle += 1
         scale = self.radius * 2 / self.original_texture.get_width()
-
+        
         self.texture = pygame.transform.rotozoom(self.original_texture, self.rotation_angle, scale)
         #-----------------------
 
@@ -54,7 +54,7 @@ class Ball:
     def load_image(self, filename, child_filename = None):
         self.texture_name = filename
         self.has_image = True
-        self.original_texture = pygame.image.load(self.texture_name) #loading image from file and keep it in self.original_texture
+        self.original_texture = load_surface(filename) #loading image from file and keep it in self.original_texture
         
         if child_filename is not None:
             self.child_texture_name = child_filename
@@ -132,3 +132,7 @@ def rotate(surface, angle):
     rotated_rect = rotated_surface.get_rect()
     rotated_rect.center = (surface.get_width()/2, surface.get_height()/2)
     return rotated_surface, rotated_rect
+
+@cache
+def load_surface(path: str) -> pygame.Surface: 
+    return pygame.image.load(path)

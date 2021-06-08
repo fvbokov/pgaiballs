@@ -87,7 +87,10 @@ class LevelScene(Scene):
             if self.pause.contains_mouse or self.quit.contains_mouse or self.notepad.contains_mouse:
                 self.level.user_actions.clear()
             if not self.pause.paused:
-                self.level.update(dt)
+                rslt = self.level.update(dt)
+                if rslt != None:
+                    from .menu import Menu
+                    return Menu()
             self.level.draw(Game.window, self.scale, self.offset)
 
             self.pause.draw(Game.window)

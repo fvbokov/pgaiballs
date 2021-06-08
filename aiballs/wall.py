@@ -11,7 +11,6 @@ class Wall:
             Vector(pos.x + size.x, pos.y + size.y), Vector(pos.x, pos.y + size.y)]
         self.points = points
         self.points = rotate_rectangle(self.points, angle)
-        self.texture_filename = texture_filename
         
     def draw(self, surface, scale, offset):
         pixel_points = []

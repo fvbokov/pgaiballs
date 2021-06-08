@@ -14,6 +14,3 @@ class FpsDisplay:
         fps = str(int(self.clock.get_fps()))
         fps_text = self.font.render(fps, 1, self.color)
         window.blit(fps_text, (10,0))
-    
-        
-

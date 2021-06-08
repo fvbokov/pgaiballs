@@ -34,7 +34,7 @@ class Menu(Scene):
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
                     pygame.quit()
-                    sys.exit()
+                    return None
                 if event.type == pygame.USEREVENT:
                     if event.user_type == pygame_gui.UI_BUTTON_PRESSED:
                         if event.ui_element == button_play:
@@ -42,7 +42,7 @@ class Menu(Scene):
                         if event.ui_element == button_options:
                             return Options()
                         if event.ui_element == button_quit:
-                            sys.exit()
+                            return None
                 manager.process_events(event)
 
             manager.update(dt)

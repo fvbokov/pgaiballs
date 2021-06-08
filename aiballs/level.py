@@ -12,11 +12,13 @@ from .player import PlayerCharacter
 from .collision import distance, on_collision, wall_ball_collision
 from .background import Background
 from .wall import Wall
+from .finish import Finish
 
 class Level():
     def __init__(self, width, height, balls, walls):
         self.balls = balls
         self.walls = walls
+        self.finish = Finish(Vector(700, 250), Vector(100, 200))
     
         self.width = width
         self.height = height
@@ -110,6 +112,8 @@ class Level():
 
     def update(self, dt):
         self.get_player_character().control(self.context)
+        if self.finish.update(self.get_player_character()):
+            return 1
         i = 0
         for ball in self.balls:
             ball.physics(dt)
@@ -124,9 +128,11 @@ class Level():
         for key in non_active_keys:
             self.timers.pop(key)
         self.active_timers = set()
+        return None
 
     def draw(self, surface, scale, offset):
         self.background.draw(surface, scale, offset)
+        self.finish.draw(surface, offset, scale)
         for ball in self.balls:
             ball.draw(surface, scale, offset)
         for wall in self.walls:

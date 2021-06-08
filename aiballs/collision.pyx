@@ -1,11 +1,15 @@
+#cython: language_level = 3
 """Functions that process collision-related event."""
 import math
 from sys import float_info
 
 from pygame import Vector2
 
+cdef float c_distance(float x1, float y1, float x2, float y2):
+    return math.sqrt((x1 - x2)**2 + (y1 - y2)**2)
+
 def distance(pos1, pos2):
-    return math.sqrt((pos1.x - pos2.x)**2 + (pos1.y - pos2.y)**2)
+    return c_distance(pos1.x, pos1.y, pos2.x, pos2.y)
 
 def check_collisions(obj, balls):
     for ball in balls:
@@ -46,9 +50,11 @@ def on_collision(ball1, ball2):
     ball1.velocity = v1new
     ball2.velocity = v2new
 
+cdef float c_distance_to_line(float ax, float ay, float bx, float by, float px, float py):
+    return (abs((bx - ax) * (ay - py) - (ax - px) * (by - ay)) / c_distance(ax, ay, bx, by))
+
 def distance_to_line(A, B, P):  # AB - Line, P - point
-    """length of normfal from point on line"""
-    return (abs((B.x - A.x) * (A.y - P.y) - (A.x - P.x) * (B.y - A.y)) / distance(A, B))
+    return c_distance_to_line(A.x, A.y, B.x, B.y, P.x, P.y)
 
 def normal_base(index1, index2, points, P):
     index3 = None
