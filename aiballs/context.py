@@ -35,4 +35,6 @@ class Context:
                 self._this.level.timers[key] = time() 
             
     def move(self, direction):
+        print('direction', direction)
+        print('pi + dir', pi + direction)
         self._this.move(pi + direction)

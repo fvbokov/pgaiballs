@@ -5,15 +5,16 @@ import pygame
 from pygame.math import Vector2
 
 from .mouse import Mouse
+from .ball import load_surface
 
 class Button(ABC):
     def __init__(self, pos):
         self.pos = pos
         self.size = Vector2(100, 100)
 
-        self.texture_normal = pygame.image.load(os.path.dirname(__file__) + '/data/images/button.png')
-        self.texture_hovered = pygame.image.load(os.path.dirname(__file__) + '/data/images/button_hovered.png')
-        self.texture_pressed = pygame.image.load(os.path.dirname(__file__) + '/data/images/button_pressed.png')
+        self.texture_normal = load_surface(os.path.dirname(__file__) + '/data/images/button.png')
+        self.texture_hovered = load_surface(os.path.dirname(__file__) + '/data/images/button_hovered.png')
+        self.texture_pressed = load_surface(os.path.dirname(__file__) + '/data/images/button_pressed.png')
 
         self.texture = self.texture_normal
 

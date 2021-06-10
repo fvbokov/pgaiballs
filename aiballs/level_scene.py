@@ -29,7 +29,6 @@ class LevelScene(Scene):
 
         self.pause = PauseButton()
         self.pause.paused = True
-        self.pause.disabled = True
         self.quit = QuitButton()
         self.notepad = EditButton()
         self.restart = RestartButton()
@@ -59,10 +58,9 @@ class LevelScene(Scene):
                 module = importlib.util.module_from_spec(spec)
                 spec.loader.exec_module(module)
                 player.control = module.ai
-                self.pause.disabled = False
                 notepad_proc.terminate()
+                self.notepad.disabled = True
                 
-
             dt = clock.tick(Game.FPS) 
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
@@ -74,6 +72,10 @@ class LevelScene(Scene):
             self.pause.update()
             self.notepad.update()
             self.restart.update()
+
+            if self.pause.pressed:
+                self.notepad.disabled = True
+
             if self.quit.update() == True:
                 from .menu import Menu
                 return Menu()
@@ -91,9 +93,12 @@ class LevelScene(Scene):
                 self.level.user_actions.clear()
             if not self.pause.paused:
                 rslt = self.level.update(dt)
-                if rslt != None:
+                if rslt == 'defeat':
                     from .finish_scene import FinishScene
-                    return FinishScene()
+                    return FinishScene('defeat')
+                if rslt == 'win':
+                    from .finish_scene import FinishScene
+                    return FinishScene('win')
             self.level.draw(Game.window, self.scale, self.offset)
 
             self.pause.draw(Game.window)

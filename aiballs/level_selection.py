@@ -8,6 +8,7 @@ from .level import Level
 from .level_scene import LevelScene
 from .game import Game
 from .fps import FpsDisplay
+from .ball import load_surface
 
 class LevelSelection(Scene):
     def play(self):
@@ -20,7 +21,7 @@ class LevelSelection(Scene):
         button_menu = pygame_gui.elements.UIButton(relative_rect=pygame.Rect((width/3 + 466, height/3 + 350), (300, 100)),
                             text='Menu', manager=manager)
         
-        background = pygame.image.load(os.path.dirname(__file__) + f'/data/images/menu_background.png')
+        background = load_surface(os.path.dirname(__file__) + f'/data/images/menu_background.png')
         background = pygame.transform.scale(background, (Game.window.get_width(), Game.window.get_height()))
 
         clock = pygame.time.Clock()

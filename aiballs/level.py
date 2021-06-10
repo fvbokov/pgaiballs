@@ -1,4 +1,3 @@
-from aiballs.context import Context
 import json
 from math import pi
 import os
@@ -13,6 +12,7 @@ from .collision import distance, on_collision, wall_ball_collision
 from .background import Background
 from .wall import Wall
 from .finish import Finish
+from .context import Context, BallInfo, WallInfo
 
 class Level():
     def __init__(self, width, height, balls, walls):
@@ -29,8 +29,6 @@ class Level():
 
         self.timers = {}
         self.active_timers = set()    
-
-        self.context = Context(self.get_player_character(), None, None, None)
 
     def to_json(self, path_to_json):
         export = dict()
@@ -113,11 +111,11 @@ class Level():
     def update(self, dt):
         player = self.get_player_character()
         if player == None:
-            return 1
+            return 'defeat'
         else:
-            player.control(self.context)
+            player.control(self.info())
         if self.finish.update(self.get_player_character()):
-            return 1
+            return 'win'
         i = 0
         for ball in self.balls:
             ball.physics(dt)
@@ -160,4 +158,15 @@ class Level():
         for wall in self.walls:
             for ball in self.balls:
                 wall_ball_collision(ball, wall)
-                                       
+
+    def info(self):
+        info_player = BallInfo(self.get_player_character().pos, self.get_player_character().radius, self.get_player_character().velocity)
+        info_balls = []
+        for ball in self.balls:
+            if ball is not self.get_player_character():
+                info_balls.append(BallInfo(ball.pos, ball.radius, ball.velocity))
+        info_walls = []
+        for wall in self.walls:
+            info_walls.append(WallInfo(wall.points))
+        return Context(self.get_player_character(), info_player, info_balls, info_walls)
+            

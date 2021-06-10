@@ -11,6 +11,7 @@ from .level_scene import LevelScene
 from .fps import FpsDisplay
 from .options import Options
 from .level_selection import LevelSelection
+from .ball import load_surface
 
 class Menu(Scene):
     def play(self):
@@ -25,7 +26,7 @@ class Menu(Scene):
         button_quit = pygame_gui.elements.UIButton(relative_rect=pygame.Rect((width/3 + 466, height/3 + 350), (300, 100)),
                             text='Quit', manager=manager)
         
-        background = pygame.image.load(os.path.dirname(__file__) + '/data/images/menu_background2.png')
+        background = load_surface(os.path.dirname(__file__) + '/data/images/menu_background2.png')
         background = pygame.transform.scale(background, (Game.window.get_width(), Game.window.get_height()))
 
         clock = pygame.time.Clock()

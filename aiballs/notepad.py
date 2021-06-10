@@ -6,11 +6,12 @@ from pygame import Vector2
 
 from .game import Game
 from .button import Button
+from .ball import load_surface
 
 class EditButton(Button):
     def __init__(self, pos=None, filename=None):
         super().__init__(pos or Vector2(Game.window.get_width() - 130, 170))
-        self.image = pygame.image.load(os.path.dirname(__file__) + '/data/images/notepad.png')
+        self.image = load_surface(os.path.dirname(__file__) + '/data/images/notepad.png')
         self.image = pygame.transform.scale(self.image, (100, 100))
         self.filename = filename or os.path.dirname(__file__) + '/data/code/test.py'
 

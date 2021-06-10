@@ -4,6 +4,7 @@ import pygame, pygame_gui
 from .game import Game
 from .scene import Scene
 from .fps import FpsDisplay
+from .ball import load_surface
 
 class Options(Scene):
     def play(self):
@@ -27,7 +28,7 @@ class Options(Scene):
         button_show_fpsG = pygame_gui.elements.UIButton(relative_rect=pygame.Rect((width/3 - 233, height/3 -25), (300, 100)),
             text='Show FPS', manager=green)
         
-        background = pygame.image.load(os.path.dirname(__file__) + '/data/images/menu_background3.png')
+        background = load_surface(os.path.dirname(__file__) + '/data/images/menu_background3.png')
         background = pygame.transform.scale(background, (Game.window.get_width(), Game.window.get_height()))
 
         clock = pygame.time.Clock()

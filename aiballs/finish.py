@@ -3,6 +3,7 @@ import os
 import pygame
 from pygame.math import Vector2 as Vector
 from .collision import in_rectangle, wall_ball_collision
+from .ball import load_surface
 
 class Finish:
     def __init__(self, pos, size):
@@ -11,7 +12,7 @@ class Finish:
         self.points = points
         self.pos = self.points[0]
 
-        self.texture = pygame.image.load(os.path.dirname(__file__) + '/data/images/finish.png')
+        self.texture = load_surface(os.path.dirname(__file__) + '/data/images/finish.png')
         self.texture = pygame.transform.scale(self.texture, (int(size.x), int(size.y)))
 
     def draw(self, surface, offset, scale):

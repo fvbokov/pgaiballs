@@ -102,6 +102,8 @@ class Ball:
         self.pos.y += self.velocity.y * milliseconds/1000
 
     def move(self, angle):
+        if angle > 2 * math.pi:
+            angle -= 2 * math.pi
         child = Ball(self.pos.x, self.pos.y, 0, pygame.Color("Green"))
 
         split_mass = self.mass / 100
@@ -109,6 +111,7 @@ class Ball:
         child.mass = split_mass
         
         direction = Vector(self.radius + child.radius, 0).rotate_rad(angle)
+        print(direction.angle_to(Vector(1, 0))) 
 
         child.pos = self.pos + direction
 
