@@ -18,7 +18,24 @@
                 ],
                 "texture": "shuriken",
                 "child_texture": "wheel"
+            },
+            {
+                "type": "<class 'aiballs.ball.Ball'>",
+                "mass": 105837.116691343,
+                "posX": 600,
+                "posY": 450,
+                "velocityX": -20,
+                "velocityY": -10,
+                "color": [
+                    0,
+                    255,
+                    0,
+                    255
+                ],
+                "texture": "pie"
             }
+            
+
         ],
         "walls" : [
             {

@@ -11,11 +11,13 @@ from .fps import FpsDisplay
 
 class LevelSelection(Scene):
     def play(self):
+        width = Game.window.get_width()
+        height = Game.window.get_height()
         manager = pygame_gui.UIManager((Game.window.get_width(), Game.window.get_height()), 
             os.path.dirname(__file__) + '/data/button_theme/theme.json')
-        button_level1 = pygame_gui.elements.UIButton(relative_rect=pygame.Rect((300, 275), (300, 100)),
+        button_level1 = pygame_gui.elements.UIButton(relative_rect=pygame.Rect((width/3 - 233, height/3 -25), (300, 100)),
                             text='Level 1', manager=manager)
-        button_menu = pygame_gui.elements.UIButton(relative_rect=pygame.Rect((1000, 650), (300, 100)),
+        button_menu = pygame_gui.elements.UIButton(relative_rect=pygame.Rect((width/3 + 466, height/3 + 350), (300, 100)),
                             text='Menu', manager=manager)
         
         background = pygame.image.load(os.path.dirname(__file__) + f'/data/images/menu_background.png')

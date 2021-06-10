@@ -8,7 +8,7 @@ from .button import Button
 
 class RestartButton(Button):
     def __init__(self, pos=None):
-        super().__init__(pos or Vector2(Game.window.get_width() - 120, 290))
+        super().__init__(pos or Vector2(Game.window.get_width() - 130, 290))
         self.image = pygame.image.load(os.path.dirname(__file__) + '/data/images/restart.png')
         self.image = pygame.transform.scale(self.image, (100, 100))
 

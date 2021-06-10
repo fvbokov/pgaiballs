@@ -7,6 +7,9 @@ from .fps import FpsDisplay
 
 class Options(Scene):
     def play(self):
+        width = Game.window.get_width()
+        height = Game.window.get_height()
+
         manager = pygame_gui.UIManager((Game.window.get_width(), Game.window.get_height()), 
             os.path.dirname(__file__) + '/data/button_theme/theme.json') 
         red = pygame_gui.UIManager((Game.window.get_width(), Game.window.get_height()), 
@@ -14,14 +17,14 @@ class Options(Scene):
         green = pygame_gui.UIManager((Game.window.get_width(), Game.window.get_height()), 
             os.path.dirname(__file__) + '/data/button_theme/green_theme.json')
 
-        button_exit = pygame_gui.elements.UIButton(relative_rect=pygame.Rect((1000, 650), (300, 100)),
+        button_exit = pygame_gui.elements.UIButton(relative_rect=pygame.Rect((width/3 + 466, height/3 + 350), (300, 100)),
             text='Back',  manager=manager)
         
-        button_show_fps = pygame_gui.elements.UIButton(relative_rect=pygame.Rect((300, 275), (300, 100)),
+        button_show_fps = pygame_gui.elements.UIButton(relative_rect=pygame.Rect((width/3 - 233, height/3 -25), (300, 100)),
             text='Show FPS', manager=manager)
-        button_show_fpsR = pygame_gui.elements.UIButton(relative_rect=pygame.Rect((300, 275), (300, 100)),
+        button_show_fpsR = pygame_gui.elements.UIButton(relative_rect=pygame.Rect((width/3 - 233, height/3 -25), (300, 100)),
             text='Show FPS', manager=red)
-        button_show_fpsG = pygame_gui.elements.UIButton(relative_rect=pygame.Rect((300, 275), (300, 100)),
+        button_show_fpsG = pygame_gui.elements.UIButton(relative_rect=pygame.Rect((width/3 - 233, height/3 -25), (300, 100)),
             text='Show FPS', manager=green)
         
         background = pygame.image.load(os.path.dirname(__file__) + '/data/images/menu_background3.png')

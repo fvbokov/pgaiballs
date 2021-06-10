@@ -1,4 +1,5 @@
 """Class that stores and updates all level data"""
+from aiballs.finish import Finish
 import os, sys, importlib
 import subprocess as sp
 from math import pi
@@ -38,7 +39,7 @@ class LevelScene(Scene):
         fps_display = FpsDisplay(clock)
         player = self.level.get_player_character()
         
-        sp.Popen([os.path.dirname(__file__) + '/data/notepad++/notepad++.exe', os.path.dirname(__file__) + '/data/code/test.py', '-multiInst', '-noPlugin', '-nosession', '-notabbar'])
+        notepad_proc = sp.Popen([os.path.dirname(__file__) + '/data/notepad++/notepad++.exe', os.path.dirname(__file__) + '/data/code/test.py', '-multiInst', '-noPlugin', '-nosession', '-notabbar'])
         
         spec = importlib.util.spec_from_file_location('AI', self.notepad.filename)
         module = importlib.util.module_from_spec(spec)
@@ -59,6 +60,8 @@ class LevelScene(Scene):
                 spec.loader.exec_module(module)
                 player.control = module.ai
                 self.pause.disabled = False
+                notepad_proc.terminate()
+                
 
             dt = clock.tick(Game.FPS) 
             for event in pygame.event.get():
@@ -89,8 +92,8 @@ class LevelScene(Scene):
             if not self.pause.paused:
                 rslt = self.level.update(dt)
                 if rslt != None:
-                    from .menu import Menu
-                    return Menu()
+                    from .finish_scene import FinishScene
+                    return FinishScene()
             self.level.draw(Game.window, self.scale, self.offset)
 
             self.pause.draw(Game.window)

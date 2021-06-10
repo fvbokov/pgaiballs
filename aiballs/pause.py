@@ -7,7 +7,7 @@ from .button import Button
 
 class PauseButton(Button):
     def __init__(self, pos=None):
-        super().__init__(pos or Vector2(Game.window.get_width() - 120, 50))
+        super().__init__(pos or Vector2(Game.window.get_width() - 130, 50))
         self.paused = False
         self.color = pygame.Color(255, 0, 0)
         self.triangle = [(self.pos.x + 14, self.pos.y + 8), (self.pos.x + 14, self.pos.y + 80 + 8), (self.pos.x + 80 + 14, self.pos.y + 40 + 8)]

@@ -111,7 +111,11 @@ class Level():
         return level
 
     def update(self, dt):
-        self.get_player_character().control(self.context)
+        player = self.get_player_character()
+        if player == None:
+            return 1
+        else:
+            player.control(self.context)
         if self.finish.update(self.get_player_character()):
             return 1
         i = 0

@@ -4,7 +4,7 @@ import os, sys
 import pygame_gui
 import pygame
 
-from .game import Game
+from .game import Game 
 from .scene import Scene
 from .level import Level
 from .level_scene import LevelScene
@@ -14,13 +14,15 @@ from .level_selection import LevelSelection
 
 class Menu(Scene):
     def play(self):
-        manager = pygame_gui.UIManager((Game.window.get_width(), Game.window.get_height()), 
+        width = Game.window.get_width()
+        height = Game.window.get_height()
+        manager = pygame_gui.UIManager((width, height), 
             os.path.dirname(__file__) + '/data/button_theme/theme.json')
-        button_play = pygame_gui.elements.UIButton(relative_rect=pygame.Rect((300, 275), (300, 100)),
+        button_play = pygame_gui.elements.UIButton(relative_rect=pygame.Rect((width/3 - 233, height/3 -25), (300, 100)),
                             text='Play', manager=manager)
-        button_options = pygame_gui.elements.UIButton(relative_rect=pygame.Rect((650, 450), (300, 100)),
+        button_options = pygame_gui.elements.UIButton(relative_rect=pygame.Rect((width/3 + 116, height/3 + 150), (300, 100)),
                             text='Options', manager=manager)
-        button_quit = pygame_gui.elements.UIButton(relative_rect=pygame.Rect((1000, 650), (300, 100)),
+        button_quit = pygame_gui.elements.UIButton(relative_rect=pygame.Rect((width/3 + 466, height/3 + 350), (300, 100)),
                             text='Quit', manager=manager)
         
         background = pygame.image.load(os.path.dirname(__file__) + '/data/images/menu_background2.png')
