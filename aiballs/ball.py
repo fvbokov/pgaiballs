@@ -54,7 +54,7 @@ class Ball:
     def load_image(self, filename, child_filename = None):
         self.texture_name = filename
         self.has_image = True
-        self.original_texture = load_surface(filename) #loading image from file and keep it in self.original_texture
+        self.original_texture = load_surface(filename) #load image from file and keep it in self.original_texture
         
         if child_filename is not None:
             self.child_texture_name = child_filename
@@ -102,8 +102,6 @@ class Ball:
         self.pos.y += self.velocity.y * milliseconds/1000
 
     def move(self, angle):
-        if angle > 2 * math.pi:
-            angle -= 2 * math.pi
         child = Ball(self.pos.x, self.pos.y, 0, pygame.Color("Green"))
 
         split_mass = self.mass / 100
@@ -111,8 +109,7 @@ class Ball:
         child.mass = split_mass
         
         direction = Vector(self.radius + child.radius, 0).rotate_rad(angle)
-        print(direction.angle_to(Vector(1, 0))) 
-
+      
         child.pos = self.pos + direction
 
         delta_v = Vector(800, 0)

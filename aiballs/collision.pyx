@@ -14,7 +14,6 @@ def distance(pos1, pos2):
 def check_collisions(obj, balls):
     for ball in balls:
         if obj is not ball:
-            
             if distance(ball.pos, obj.pos) <= obj.radius + ball.radius:
                 if ball.radius > obj.radius:
                     on_collision(ball, obj)
@@ -38,7 +37,6 @@ def on_collision(ball1, ball2):
         ball2.radius = r2new
 
     m1new = ball1.mass
-
     m3 = m1new - m1
 
     v1 = ball1.velocity
@@ -49,6 +47,7 @@ def on_collision(ball1, ball2):
 
     ball1.velocity = v1new
     ball2.velocity = v2new
+
 
 cdef float c_distance_to_line(float ax, float ay, float bx, float by, float px, float py):
     return (abs((bx - ax) * (ay - py) - (ax - px) * (by - ay)) / c_distance(ax, ay, bx, by))
@@ -144,7 +143,7 @@ def action_on_collision(ball, point1, point2):
     dist = distance_to_line(point1, point2, M)
     
     vec = (point2 - point1).rotate(-90)
-    vec.scale_to_length(2 * dist)
+    vec.scale_to_length(2*dist)
     
     ball.pos += vec
     #------

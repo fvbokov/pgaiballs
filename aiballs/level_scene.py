@@ -1,8 +1,7 @@
 """Class that stores and updates all level data"""
-from aiballs.finish import Finish
-import os, sys, importlib
+import os, importlib
 import subprocess as sp
-from math import pi
+
 
 import pygame
 
@@ -17,14 +16,14 @@ from .pause import PauseButton
 from .quit import QuitButton
 from .notepad import EditButton
 from .restart import RestartButton
-from .context import Context
-from .level import Level
+
 
 class LevelScene(Scene):
     """Class with constructor, ball add function, process balls with play and check_collisions"""
-    def __init__(self, level):
+    def __init__(self, level, level_name):
         self.scale = 1
         self.level = level
+        self.level_name = level_name
         self.offset = Vector(0, 0)  
 
         self.pause = PauseButton()
@@ -42,7 +41,13 @@ class LevelScene(Scene):
         
         spec = importlib.util.spec_from_file_location('AI', self.notepad.filename)
         module = importlib.util.module_from_spec(spec)
-        spec.loader.exec_module(module)
+        try:
+            spec.loader.exec_module(module)
+        except Exception as e:
+
+            notepad_proc.terminate()
+            from .code_error import CodeError
+            return CodeError(self.level_name, str(e))
         player.control = module.ai
 
         code = 0
@@ -56,7 +61,12 @@ class LevelScene(Scene):
             if not (copy == code):
                 spec = importlib.util.spec_from_file_location('AI', self.notepad.filename)
                 module = importlib.util.module_from_spec(spec)
-                spec.loader.exec_module(module)
+                try:
+                    spec.loader.exec_module(module)
+                except Exception as e:
+                    notepad_proc.terminate()
+                    from .code_error import CodeError
+                    return CodeError(self.level_name, str(e))
                 player.control = module.ai
                 notepad_proc.terminate()
                 self.notepad.disabled = True
@@ -82,7 +92,8 @@ class LevelScene(Scene):
             if self.notepad.pressed:
                 self.pause.paused = True
             if self.restart.pressed:
-                return LevelScene(Level.from_json('level1.json'))
+                from .level import Level
+                return LevelScene(Level.from_json(self.level_name), self.level_name)
 
             if Mouse.state == 'pressing':
                 mouse_window_pos = Mouse.pos()
@@ -92,7 +103,13 @@ class LevelScene(Scene):
             if self.pause.contains_mouse or self.quit.contains_mouse or self.notepad.contains_mouse:
                 self.level.user_actions.clear()
             if not self.pause.paused:
-                rslt = self.level.update(dt)
+                rslt = 0
+                try:
+                    rslt = self.level.update(dt)
+                except Exception as e:
+                    notepad_proc.terminate()
+                    from .code_error import CodeError
+                    return CodeError(self.level_name, str(e))
                 if rslt == 'defeat':
                     from .finish_scene import FinishScene
                     return FinishScene('defeat')

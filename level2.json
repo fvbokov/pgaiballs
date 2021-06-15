@@ -1,13 +1,13 @@
 {
     "level": {
-        "width" : 1600,
-        "height" : 900,
+        "width" : 2000,
+        "height" : 1500,
         "balls": [
             {
                 "type": "<class 'aiballs.player.PlayerCharacter'>",
-                "mass": 115837.116691343,
-                "posX": 400,
-                "posY": 250,
+                "mass": 315837.116691343,
+                "posX": 100,
+                "posY": 100,
                 "velocityX": 0,
                 "velocityY": 0,
                 "color": [
@@ -21,11 +21,26 @@
             },
             {
                 "type": "<class 'aiballs.ball.Ball'>",
-                "mass": 105837.116691343,
-                "posX": 600,
+                "mass": 213837.116691343,
+                "posX": 700,
+                "posY": 700,
+                "velocityX": 0,
+                "velocityY": 0,
+                "color": [
+                    0,
+                    255,
+                    0,
+                    255
+                ],
+                "texture": "pie"
+            },
+			{
+                "type": "<class 'aiballs.ball.Ball'>",
+                "mass": 215837.116691343,
+                "posX": 900,
                 "posY": 450,
-                "velocityX": -40,
-                "velocityY": -20,
+                "velocityX": 0,
+                "velocityY": 0,
                 "color": [
                     0,
                     255,
@@ -34,16 +49,14 @@
                 ],
                 "texture": "pie"
             }
-            
-
         ],
         "walls" : [
             {
-                "posX" : 200,
-                "posY" : 200,
+                "posX" : 100,
+                "posY" : 400,
                 "sizeX" : 100,
                 "sizeY" : 200,
-                "angle" : 0
+                "angle" : 75
             }
         ],
         "finish" : {

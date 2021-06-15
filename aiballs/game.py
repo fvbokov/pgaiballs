@@ -9,6 +9,8 @@ from zipfile import ZipFile
 class Game:
     @classmethod
     def init(cls, width = 1600, height = 900):
+
+        #installing local notepad, checking if it is already in local files
         path_to_notepad = Path(__file__).parent/'data/notepad++/notepad++.exe'
         if not path_to_notepad.exists():
             path_to_tempdir = Path(__file__).parent/'data/temp'
@@ -25,6 +27,7 @@ class Game:
                 zip.extractall(path_to_notepad.parent)
 
             rmtree(path_to_tempdir)
+        #---------------------------------------------------------------
 
         pygame.init()
 
@@ -36,6 +39,8 @@ class Game:
     
     @classmethod
     def play(cls, first_scene):
+        """Scenes in the game are changing by returning the next scene, 
+        if game is closed scene returns None"""
         cls.current_scene = first_scene
         while cls.current_scene is not None:
             cls.current_scene = cls.current_scene.play()

@@ -1,13 +1,10 @@
-from aiballs.level_scene import LevelScene
-import os, sys
+import os
 
 import pygame_gui
 import pygame
 
 from .game import Game 
 from .scene import Scene
-from .level import Level
-from .level_scene import LevelScene
 from .fps import FpsDisplay
 from .options import Options
 from .level_selection import LevelSelection
@@ -17,8 +14,10 @@ class Menu(Scene):
     def play(self):
         width = Game.window.get_width()
         height = Game.window.get_height()
+
         manager = pygame_gui.UIManager((width, height), 
             os.path.dirname(__file__) + '/data/button_theme/theme.json')
+
         button_play = pygame_gui.elements.UIButton(relative_rect=pygame.Rect((width/3 - 233, height/3 -25), (300, 100)),
                             text='Play', manager=manager)
         button_options = pygame_gui.elements.UIButton(relative_rect=pygame.Rect((width/3 + 116, height/3 + 150), (300, 100)),
@@ -27,13 +26,14 @@ class Menu(Scene):
                             text='Quit', manager=manager)
         
         background = load_surface(os.path.dirname(__file__) + '/data/images/menu_background2.png')
-        background = pygame.transform.scale(background, (Game.window.get_width(), Game.window.get_height()))
+        background = pygame.transform.scale(background, (width, height))
 
         clock = pygame.time.Clock()
         fps_display = FpsDisplay(clock)
 
         while True:
-            dt = clock.tick(Game.FPS) 
+            dt = clock.tick(Game.FPS)
+             
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
                     pygame.quit()

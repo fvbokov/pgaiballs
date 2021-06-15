@@ -1,40 +1,42 @@
-from aiballs.level_scene import LevelScene
 import os
+import subprocess as sp
 
 import pygame, pygame_gui
 
 from .scene import Scene
-from .level import Level
-from .level_scene import LevelScene
 from .game import Game
 from .fps import FpsDisplay
 from .ball import load_surface
 
-class FinishScene(Scene):
+class CodeError(Scene):
+    def __init__(self, level_name, message):
+        self.level_name = level_name
+        self.message = message
+
     def play(self):
         width = Game.window.get_width()
         height = Game.window.get_height()
-        manager = pygame_gui.UIManager((Game.window.get_width(), Game.window.get_height()), 
+        manager = pygame_gui.UIManager((width, height), 
             os.path.dirname(__file__) + '/data/button_theme/defeat_theme.json')
         button_back_to_menu = pygame_gui.elements.UIButton(relative_rect=pygame.Rect((width/3 - 233, height/3 -25), (300, 100)),
                             text='Menu', manager=manager)
-        button_restart = pygame_gui.elements.UIButton(relative_rect=pygame.Rect((width/3 + 116, height/3 + 150), (300, 100)),
+        button_edit = pygame_gui.elements.UIButton(relative_rect=pygame.Rect((width/3 + 116, height/3 + 150), (300, 100)),
+                            text='Edit code', manager=manager)
+        button_restart = pygame_gui.elements.UIButton(relative_rect=pygame.Rect((width/3 + 466, height/3 + 350), (300, 100)),
                             text='Restart', manager=manager)
-        button_quit = pygame_gui.elements.UIButton(relative_rect=pygame.Rect((width/3 + 466, height/3 + 350), (300, 100)),
-                            text='Quit', manager=manager)
         
-        if self.outcome == 'defeat':
-            background = load_surface(os.path.dirname(__file__) + '/data/images/game_over.png')
-        if self.outcome == 'win':
-            background = load_surface(os.path.dirname(__file__) + '/data/images/level_complete.png')
-        if self.outcome != 'defeat' and self.outcome != 'win':
-            background = load_surface(os.path.dirname(__file__) + '/data/images/menu_background.png')
+       
+        background = load_surface(os.path.dirname(__file__) + '/data/images/code_error.png')
+       
 
         background = pygame.transform.smoothscale(background, (Game.window.get_width(), Game.window.get_height()))
 
         clock = pygame.time.Clock()
         fps_display = FpsDisplay(clock)
 
+        with open(os.path.dirname(__file__) + '/data/code/test.py', 'a', encoding='UTF-8') as file:
+            file.write(f"\n# {self.message}")
+        
         while True:
             dt = clock.tick(Game.FPS) 
             for event in pygame.event.get():
@@ -46,10 +48,12 @@ class FinishScene(Scene):
                         if event.ui_element == button_back_to_menu:
                             from .menu import Menu
                             return Menu()
+                        if event.ui_element == button_edit:
+                            sp.Popen([os.path.dirname(__file__) + '/data/notepad++/notepad++.exe', os.path.dirname(__file__) + '/data/code/test.py', '-multiInst', '-noPlugin', '-nosession', '-notabbar'])
                         if event.ui_element == button_restart:
-                            return LevelScene(Level.from_json('level1.json'), 'level_name')
-                        if event.ui_element == button_quit:
-                            return None
+                            from .level_scene import LevelScene
+                            from .level import Level
+                            return LevelScene(Level.from_json(self.level_name), self.level_name)
                 manager.process_events(event)
 
             manager.update(dt)
@@ -62,7 +66,4 @@ class FinishScene(Scene):
                 fps_display.draw(Game.window)
 
             pygame.display.flip()
-
-    def __init__(self, outcome=None):
-        self.outcome = outcome
 

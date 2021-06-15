@@ -15,10 +15,10 @@ from .finish import Finish
 from .context import Context, BallInfo, WallInfo
 
 class Level():
-    def __init__(self, width, height, balls, walls):
+    def __init__(self, width, height, balls, walls, finish):
         self.balls = balls
         self.walls = walls
-        self.finish = Finish(Vector(700, 250), Vector(100, 200))
+        self.finish = finish
     
         self.width = width
         self.height = height
@@ -31,8 +31,9 @@ class Level():
         self.active_timers = set()    
 
     def to_json(self, path_to_json):
-        export = dict()
-        ball_dicts = list()
+        export = {}
+        ball_dicts = []
+        wall_dicts = []
 
         i = 0
         for ball in self.balls:
@@ -49,8 +50,7 @@ class Level():
             if ball.child_texture_name is not None:
                 ball_dicts[i]['child_texture'] = Path(ball.child_texture_name).stem
             i += 1
-        
-           
+                   
         export['level']['width'] = self.width
         export['level']['height'] = self.height
         export['level']['balls'] = ball_dicts
@@ -102,7 +102,14 @@ class Level():
             angle = wall["angle"]
             walls.append(Wall(pos, size, angle))
 
-        level = cls(width, height, balls, walls)
+        finish_pos_x = data["level"]["finish"]["posX"]
+        finish_pos_y = data["level"]["finish"]["posY"]
+        finish_size_x = data["level"]["finish"]["sizeX"]
+        finish_size_y = data["level"]["finish"]["sizeY"]
+
+        finish = Finish(Vector(finish_pos_x, finish_pos_y), Vector(finish_size_x, finish_size_y))
+
+        level = cls(width, height, balls, walls, finish)
         for ball in level.balls:
             ball.level = level
         
