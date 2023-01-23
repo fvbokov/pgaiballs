@@ -3,12 +3,12 @@ import os
 
 import pygame, pygame_gui
 
-from .scene import Scene
-from .level import Level
-from .level_scene import LevelScene
-from .game import Game
-from .fps import FpsDisplay
-from .ball import load_surface
+from scene import Scene
+from level import Level
+from level_scene import LevelScene
+from game import Game
+from fps import FpsDisplay
+from ball import load_surface
 
 class FinishScene(Scene):
     def play(self):
@@ -44,7 +44,7 @@ class FinishScene(Scene):
                 if event.type == pygame.USEREVENT:
                     if event.user_type == pygame_gui.UI_BUTTON_PRESSED:
                         if event.ui_element == button_back_to_menu:
-                            from .menu import Menu
+                            from menu import Menu
                             return Menu()
                         if event.ui_element == button_restart:
                             return LevelScene(Level.from_json('level1.json'), 'level_name')

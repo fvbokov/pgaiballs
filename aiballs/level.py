@@ -6,13 +6,13 @@ from pathlib import Path
 import pygame
 from pygame.math import Vector2 as Vector
 
-from .ball import Ball
-from .player import PlayerCharacter
-from .collision import distance, on_collision, wall_ball_collision
-from .background import Background
-from .wall import Wall
-from .finish import Finish
-from .context import Context, BallInfo, WallInfo
+from ball import Ball
+from player import PlayerCharacter
+from collision import distance, on_collision, wall_ball_collision
+from background import Background
+from wall import Wall
+from finish import Finish
+from context import Context, BallInfo, WallInfo
 
 class Level():
     def __init__(self, width, height, balls, walls, finish):
@@ -66,7 +66,7 @@ class Level():
         balls = list()
         data = dict()
 
-        from .player import PlayerCharacter
+        from player import PlayerCharacter
 
         with open(path_to_json, 'r', encoding='utf-8') as f:
             data = json.load(f)        

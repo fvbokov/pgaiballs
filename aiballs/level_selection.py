@@ -3,12 +3,12 @@ import os, sys
 import pygame
 import pygame_gui
 
-from .scene import Scene
-from .level import Level
-from .level_scene import LevelScene
-from .game import Game
-from .fps import FpsDisplay
-from .ball import load_surface
+from scene import Scene
+from level import Level
+from level_scene import LevelScene
+from game import Game
+from fps import FpsDisplay
+from ball import load_surface
 
 class LevelSelection(Scene):
     def play(self):
@@ -45,7 +45,7 @@ class LevelSelection(Scene):
                         if event.ui_element == button_level2:
                             return LevelScene(Level.from_json('level2.json'), 'level2.json')
                         if event.ui_element == button_menu:
-                            from .menu import Menu
+                            from menu import Menu
                             return Menu()
                 manager.process_events(event)
 

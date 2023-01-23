@@ -3,12 +3,12 @@ import os
 import pygame_gui
 import pygame
 
-from .game import Game 
-from .scene import Scene
-from .fps import FpsDisplay
-from .options import Options
-from .level_selection import LevelSelection
-from .ball import load_surface
+from game import Game 
+from scene import Scene
+from fps import FpsDisplay
+from options import Options
+from level_selection import LevelSelection
+from ball import load_surface
 
 class Menu(Scene):
     def play(self):

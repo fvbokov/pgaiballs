@@ -3,10 +3,10 @@ import subprocess as sp
 
 import pygame, pygame_gui
 
-from .scene import Scene
-from .game import Game
-from .fps import FpsDisplay
-from .ball import load_surface
+from scene import Scene
+from game import Game
+from fps import FpsDisplay
+from ball import load_surface
 
 class CodeError(Scene):
     def __init__(self, level_name, message):
@@ -46,13 +46,13 @@ class CodeError(Scene):
                 if event.type == pygame.USEREVENT:
                     if event.user_type == pygame_gui.UI_BUTTON_PRESSED:
                         if event.ui_element == button_back_to_menu:
-                            from .menu import Menu
+                            from menu import Menu
                             return Menu()
                         if event.ui_element == button_edit:
                             sp.Popen([os.path.dirname(__file__) + '/data/notepad++/notepad++.exe', os.path.dirname(__file__) + '/data/code/test.py', '-multiInst', '-noPlugin', '-nosession', '-notabbar'])
                         if event.ui_element == button_restart:
-                            from .level_scene import LevelScene
-                            from .level import Level
+                            from level_scene import LevelScene
+                            from level import Level
                             return LevelScene(Level.from_json(self.level_name), self.level_name)
                 manager.process_events(event)
 

@@ -4,9 +4,9 @@ import os
 import pygame
 from pygame import Vector2
 
-from .game import Game
-from .button import Button
-from .ball import load_surface
+from game import Game
+from button import Button
+from ball import load_surface
 
 class EditButton(Button):
     def __init__(self, pos=None, filename=None):

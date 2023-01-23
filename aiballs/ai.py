@@ -3,9 +3,9 @@ import math
 
 from pygame import mouse
 
-from .mouse import Mouse
-from .collision import distance
-from .useraction import MouseClick
+from mouse import Mouse
+from collision import distance
+from useraction import MouseClick
 
 def mouse_control(self):
     for action in self.level.user_actions:

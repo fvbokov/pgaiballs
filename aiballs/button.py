@@ -4,8 +4,8 @@ from abc import ABC, abstractmethod
 import pygame
 from pygame.math import Vector2
 
-from .mouse import Mouse
-from .ball import load_surface
+from mouse import Mouse
+from ball import load_surface
 
 class Button(ABC):
     def __init__(self, pos):

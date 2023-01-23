@@ -1,9 +1,9 @@
 import pygame
 from pygame.math import Vector2
 
-from .game import Game
-from .mouse import Mouse
-from .button import Button
+from game import Game
+from mouse import Mouse
+from button import Button
 
 class PauseButton(Button):
     def __init__(self, pos=None):

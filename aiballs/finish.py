@@ -2,8 +2,8 @@ import os
 
 import pygame
 from pygame.math import Vector2 as Vector
-from .collision import in_rectangle, wall_ball_collision
-from .ball import load_surface
+from collision import in_rectangle, wall_ball_collision
+from ball import load_surface
 
 class Finish:
     def __init__(self, pos, size):

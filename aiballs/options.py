@@ -1,10 +1,10 @@
 import os, sys
 import pygame, pygame_gui
 
-from .game import Game
-from .scene import Scene
-from .fps import FpsDisplay
-from .ball import load_surface
+from game import Game
+from scene import Scene
+from fps import FpsDisplay
+from ball import load_surface
 
 class Options(Scene):
     def play(self):
@@ -43,7 +43,7 @@ class Options(Scene):
                 if event.type == pygame.USEREVENT:
                     if event.user_type == pygame_gui.UI_BUTTON_PRESSED:
                         if event.ui_element == button_exit:
-                            from .menu import Menu
+                            from menu import Menu
                             return Menu()
                         if event.ui_element == button_show_fps:
                             if Game.show_fps == True:

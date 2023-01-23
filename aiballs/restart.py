@@ -3,9 +3,9 @@ import os
 import pygame
 from pygame.math import Vector2
 
-from .game import Game
-from .button import Button
-from .ball import load_surface
+from game import Game
+from button import Button
+from ball import load_surface
 
 class RestartButton(Button):
     def __init__(self, pos=None):

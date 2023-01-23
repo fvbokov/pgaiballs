@@ -7,15 +7,15 @@ import pygame
 
 from pygame.math import Vector2 as Vector
 
-from .game import Game
-from .scene import Scene
-from .mouse import Mouse
-from .fps import FpsDisplay
-from .useraction import MouseClick
-from .pause import PauseButton
-from .quit import QuitButton
-from .notepad import EditButton
-from .restart import RestartButton
+from game import Game
+from scene import Scene
+from mouse import Mouse
+from fps import FpsDisplay
+from useraction import MouseClick
+from pause import PauseButton
+from quit import QuitButton
+from notepad import EditButton
+from restart import RestartButton
 
 
 class LevelScene(Scene):
@@ -46,7 +46,7 @@ class LevelScene(Scene):
         except Exception as e:
 
             notepad_proc.terminate()
-            from .code_error import CodeError
+            from code_error import CodeError
             return CodeError(self.level_name, str(e))
         player.control = module.ai
 
@@ -65,7 +65,7 @@ class LevelScene(Scene):
                     spec.loader.exec_module(module)
                 except Exception as e:
                     notepad_proc.terminate()
-                    from .code_error import CodeError
+                    from code_error import CodeError
                     return CodeError(self.level_name, str(e))
                 player.control = module.ai
                 notepad_proc.terminate()
@@ -87,12 +87,12 @@ class LevelScene(Scene):
                 self.notepad.disabled = True
 
             if self.quit.update() == True:
-                from .menu import Menu
+                from menu import Menu
                 return Menu()
             if self.notepad.pressed:
                 self.pause.paused = True
             if self.restart.pressed:
-                from .level import Level
+                from level import Level
                 return LevelScene(Level.from_json(self.level_name), self.level_name)
 
             if Mouse.state == 'pressing':
@@ -108,13 +108,13 @@ class LevelScene(Scene):
                     rslt = self.level.update(dt)
                 except Exception as e:
                     notepad_proc.terminate()
-                    from .code_error import CodeError
+                    from code_error import CodeError
                     return CodeError(self.level_name, str(e))
                 if rslt == 'defeat':
-                    from .finish_scene import FinishScene
+                    from finish_scene import FinishScene
                     return FinishScene('defeat')
                 if rslt == 'win':
-                    from .finish_scene import FinishScene
+                    from finish_scene import FinishScene
                     return FinishScene('win')
             self.level.draw(Game.window, self.scale, self.offset)
 

@@ -1,4 +1,4 @@
-from aiballs.collision import distance
+from collision import distance
 import pygame
 from pygame.math import Vector2 as Vector
 from pygame import Color as Color 

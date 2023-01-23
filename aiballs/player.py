@@ -1,5 +1,5 @@
-from .ball import Ball
-from .ai import mouse_control
+from ball import Ball
+from ai import mouse_control
 
 class PlayerCharacter(Ball):
     def __init__(self, *args, **kwargs):

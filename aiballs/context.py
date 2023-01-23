@@ -3,8 +3,8 @@ from math import pi
 from time import time
 
 from pygame.math import Vector2
-from .ball import Ball
-from .player import PlayerCharacter 
+from ball import Ball
+from player import PlayerCharacter 
 
 @dataclass
 class BallInfo:
